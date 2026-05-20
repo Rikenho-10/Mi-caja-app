@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Executive Control - Luxury Edition</title>
+    <title>Executive Control - Luxury Box</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         /* Estilos Globales - Neo-Minimalismo Premium */
@@ -26,20 +26,44 @@
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* Identidad de Marca */
+        /* Identidad de Marca y Carga de Logo */
         .brand-header {
             text-align: center;
             margin-bottom: 30px;
         }
+        .logo-wrapper {
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+            margin-bottom: 12px;
+        }
         .brand-logo {
-            max-width: 90px;
-            height: auto;
+            width: 90px;
+            height: 90px;
             border-radius: 50%;
             border: 2px solid rgba(255, 255, 255, 0.1);
-            margin-bottom: 10px;
+            object-fit: cover;
+        }
+        .logo-placeholder {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: 2px dashed rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+        }
+        .logo-wrapper:hover .logo-placeholder {
+            border-color: #3b82f6;
+            color: #3b82f6;
         }
         .brand-title {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             font-weight: 700;
             letter-spacing: 2px;
             text-transform: uppercase;
@@ -66,7 +90,6 @@
             color: #64748b;
             font-size: 0.9rem;
             cursor: pointer;
-            transition: all 0.2s ease;
         }
         .tab-button.active {
             background: #1e293b;
@@ -88,7 +111,6 @@
             padding: 20px;
             border-radius: 16px;
             text-align: center;
-            transition: transform 0.2s;
         }
         .card-title {
             font-size: 0.75rem;
@@ -98,14 +120,9 @@
             letter-spacing: 1.5px;
             font-weight: 600;
         }
-        .card-value {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #ffffff;
-        }
+        .card-value { font-size: 1.5rem; font-weight: 700; color: #ffffff; }
         .grid-full { grid-column: span 2; }
 
-        /* Detalles Cromáticos Sutiles de Categorías */
         .card-total { border-top: 2px solid #3b82f6; background: rgba(59, 130, 246, 0.01); }
         .card-rojo { border-top: 2px solid #ef4444; }
         .card-rojo .card-value { color: #f87171; }
@@ -122,9 +139,9 @@
         .card-gold .card-title { color: #fbbf24; }
         .card-gold .card-value { font-size: 2.2rem; color: #fbbf24; }
 
-        /* Formularios Elegant */
+        /* Formularios */
         .form-group { margin-bottom: 20px; }
-        label { display: block; margin-bottom: 8px; font-size: 0.85rem; color: #94a3b8; letter-spacing: 0.5px; }
+        label { display: block; margin-bottom: 8px; font-size: 0.85rem; color: #94a3b8; }
         input, select {
             width: 100%;
             padding: 14px;
@@ -135,9 +152,8 @@
             border-radius: 12px;
             font-size: 1rem;
         }
-        input:focus, select:focus { border-color: #3b82f6; outline: none; }
 
-        /* Botones del Ecosistema */
+        /* Botones */
         .btn-action {
             width: 100%;
             padding: 15px;
@@ -158,63 +174,77 @@
         }
         .btn-download:hover { background: rgba(255, 255, 255, 0.05); }
 
-        /* Tablas de Información */
+        /* Tablas */
         table { width: 100%; border-collapse: collapse; margin-top: 25px; }
-        th, td { padding: 14px; text-align: left; border-bottom: 1px solid rgba(255, 255, 255, 0.04); font-size: 0.95rem; }
-        th { color: #64748b; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
+        th, td { padding: 14px; text-align: left; border-bottom: 1px solid rgba(255, 255, 255, 0.04); }
+        th { color: #64748b; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; }
         .badge { padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; }
         .badge-c { background: rgba(59, 130, 246, 0.1); color: #60a5fa; }
         .badge-p { background: rgba(245, 158, 11, 0.1); color: #fbbf24; }
         
-        .btn-row-delete {
-            background: transparent;
-            color: #64748b;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-        }
+        .btn-row-delete { background: transparent; color: #64748b; border: none; cursor: pointer; font-size: 1rem; }
         .btn-row-delete:hover { color: #ef4444; }
 
-        /* DISEÑO EXCLUSIVO DEL TICKET DE DESCARGA (Oculto en app, visible en la foto) */
-        #ticket-render-container {
-            position: absolute;
-            left: -9999px; /* Escondido del flujo de la pantalla */
+        /* Reportes de Rangoles */
+        .date-range-container { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
+        .report-grid { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; }
+        .report-neon-card {
+            background: #111827;
+            border: 1px solid #374151;
+            padding: 20px;
+            border-radius: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
+        .border-amber { border-left: 5px solid #f59e0b; }
+        .border-emerald { border-left: 5px solid #10b981; }
+        .report-neon-card h4 { margin: 0; color: #ffffff; }
+        .report-neon-card p { margin: 5px 0 0 0; color: #9ca3af; font-size: 0.85rem; }
+        .report-val-highlight { font-size: 1.8rem; font-weight: bold; }
+        .color-amber { color: #fbbf24; }
+        .color-emerald { color: #34d399; }
+
+        /* DISEÑO EXCLUSIVO DEL TICKET (Oculto en app, optimizado para la foto) */
+        #ticket-render-container { position: absolute; left: -9999px; }
         .ticket-style {
-            width: 400px;
+            width: 420px;
             background-color: #0d1224;
             color: #ffffff;
             padding: 40px 30px;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
             border: 1px solid rgba(255,255,255,0.1);
         }
+        .ticket-header-img { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; margin-bottom: 10px; }
         .ticket-divider { border-top: 1px dashed rgba(255, 255, 255, 0.15); margin: 20px 0; }
-        .ticket-row { display: flex; justify-content: space-between; margin-bottom: 12px; }
-        .ticket-row .label { color: #94a3b8; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
-        .ticket-row .value { font-weight: 700; font-size: 1.1rem; }
-        .ticket-row.grand-total { font-size: 1.4rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px; }
-        .ticket-row.gold-total .value { color: #fbbf24; font-size: 1.8rem; }
-        .ticket-footer { text-align: center; font-size: 0.75rem; color: #64748b; margin-top: 30px; letter-spacing: 1px; }
+        .ticket-row { display: flex; justify-content: space-between; margin-bottom: 10px; }
+        .ticket-row .label { color: #94a3b8; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
+        .ticket-row .value { font-weight: 700; font-size: 1.05rem; }
+        .ticket-row.grand-total { font-size: 1.3rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px; }
+        .ticket-row.gold-total .value { color: #fbbf24; font-size: 1.6rem; }
+        .ticket-footer { text-align: center; font-size: 0.75rem; color: #475569; margin-top: 35px; letter-spacing: 1px; }
 
-        .btn-clear-data { background: transparent; color: #475569; border: none; font-size: 0.85rem; margin-top: 40px; width: 100%; cursor: pointer; }
-        .btn-clear-data:hover { color: #ef4444; }
+        .btn-clear-data { background: transparent; color: #273549; border: none; font-size: 0.85rem; margin-top: 40px; width: 100%; cursor: pointer; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="brand-header">
-        <img src="logo.png" alt="Logo" class="brand-logo" onerror="this.style.display='none';">
+        <input type="file" id="logo-input" accept="image/*" style="display: none;">
+        <div class="logo-wrapper" onclick="document.getElementById('logo-input').click();" title="Presiona para cambiar el logotipo">
+            <img id="app-logo" src="" alt="Logo" class="brand-logo" style="display: none;">
+            <div id="logo-placeholder" class="logo-placeholder">Añadir Logo</div>
+        </div>
         <div class="brand-title">Executive Control</div>
     </div>
 
     <div class="tabs-nav">
         <button class="tab-button active" onclick="cambiarPestaña('registro')">Caja Diaria</button>
-        <button class="tab-button" onclick="cambiarPestaña('reportes')">Auditoría de Rangos</button>
+        <button class="tab-button" onclick="cambiarPestaña('reportes')">Auditoría</button>
     </div>
     
     <div id="tab-registro" class="tab-content active">
-        
         <div class="dashboard-grid">
             <div class="card">
                 <div class="card-title">Venta del Día</div>
@@ -320,10 +350,16 @@
 
 <div id="ticket-render-container">
     <div class="ticket-style" id="ticket-visual">
-        <div style="text-align: center; margin-bottom: 20px;">
-            <div class="brand-title" style="font-size: 1.6rem;">Reporte de Caja</div>
+        <div style="text-align: center; margin-bottom: 15px;">
+            <img id="ticket-logo" src="" alt="Logo Ticket" class="ticket-header-img" style="display: none;">
+            <div class="brand-title" style="font-size: 1.4rem;">Auditoría de Caja</div>
             <div style="font-size: 0.8rem; color: #64748b; margin-top: 5px;" id="ticket-fecha-emision">00/00/0000 00:00</div>
         </div>
+        
+        <div class="ticket-divider"></div>
+        <div style="font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; font-weight: bold;">Desglose de Operaciones</div>
+        <div id="ticket-lista-clientes-dinamica"></div>
+        
         <div class="ticket-divider"></div>
         
         <div class="ticket-row">
@@ -358,7 +394,7 @@
         </div>
         
         <div class="ticket-footer">
-            SISTEMA DE AUDITORÍA INTERNA DIGITAL
+            REPORT GENERATED AUTOMATICALLY
         </div>
     </div>
 </div>
@@ -366,14 +402,19 @@
 <script>
     let registros = JSON.parse(localStorage.getItem('caja_operativa')) || [];
 
-    // Elementos del DOM
+    // Control de Elementos Multimedia e Inputs
+    const logoInput = document.getElementById('logo-input');
+    const appLogo = document.getElementById('app-logo');
+    const ticketLogo = document.getElementById('ticket-logo');
+    const logoPlaceholder = document.getElementById('logo-placeholder');
+
     const formOperacion = document.getElementById('formOperacion');
     const clienteInput = document.getElementById('cliente');
     const tipoSelect = document.getElementById('tipo');
     const montoInput = document.getElementById('monto');
     const historialLineas = document.getElementById('historialLineas');
 
-    // Nodos Dashboard de la App
+    // Nodos Dashboard
     const txtVentaDia = document.getElementById('ventaDia');
     const txtProductoCerrado = document.getElementById('productoCerrado');
     const txtTotalCombinado = document.getElementById('totalCombinado');
@@ -381,7 +422,7 @@
     const txtSobreVerde = document.getElementById('sobreVerde');
     const txtConsumosMetrica = document.getElementById('consumosMetrica');
 
-    // Nodos del Ticket Oculto
+    // Nodos Ticket Oculto
     const tvVenta = document.getElementById('t-ventaDia');
     const tvCerrado = document.getElementById('t-productoCerrado');
     const tvCombinado = document.getElementById('t-totalCombinado');
@@ -389,6 +430,7 @@
     const tvVerde = document.getElementById('t-sobreVerde');
     const tvConsumos = document.getElementById('t-consumosMetrica');
     const tvFecha = document.getElementById('ticket-fecha-emision');
+    const ticketListaClientesDinamica = document.getElementById('ticket-lista-clientes-dinamica');
 
     // Nodos Reportes
     const fInicio = document.getElementById('fechaInicio');
@@ -397,6 +439,33 @@
     const txtRepPromedioConsumos = document.getElementById('repPromedioConsumos');
     const txtRepSumaVerdes = document.getElementById('repSumaVerdes');
     const lblDivisionDias = document.getElementById('lblDivisionDias');
+
+    // LÓGICA DE CARGA Y MEMORIA DE LOGOTIPO
+    const logoGuardado = localStorage.getItem('club_logo_persitente');
+    if (logoGuardado) {
+        configurarFuentesLogo(logoGuardado);
+    }
+
+    logoInput.addEventListener('change', function(e) {
+        const archivo = e.target.files[0];
+        if (archivo) {
+            const lector = new FileReader();
+            lector.onload = function(evt) {
+                const base64Imagen = evt.target.result;
+                localStorage.setItem('club_logo_persitente', base64Imagen);
+                configurarFuentesLogo(base64Imagen);
+            };
+            lector.readAsDataURL(archivo);
+        }
+    });
+
+    function configurarFuentesLogo(origenSrc) {
+        appLogo.src = origenSrc;
+        appLogo.style.display = 'inline-block';
+        ticketLogo.src = origenSrc;
+        ticketLogo.style.display = 'inline-block';
+        logoPlaceholder.style.display = 'none';
+    }
 
     function cambiarPestaña(pestaña) {
         document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
@@ -431,7 +500,6 @@
         const verde = combinado * 0.30;
         const consumos = ventaDiaAcumulado / 90;
         
-        // Sincronizar UI de la App
         txtVentaDia.textContent = ventaDiaAcumulado.toFixed(2);
         txtProductoCerrado.textContent = productoCerradoAcumulado.toFixed(2);
         txtTotalCombinado.textContent = combinado.toFixed(2);
@@ -439,7 +507,6 @@
         txtSobreVerde.textContent = verde.toFixed(2);
         txtConsumosMetrica.textContent = consumos.toFixed(2);
 
-        // Sincronizar UI del Ticket Oculto inmediatamente
         tvVenta.textContent = ventaDiaAcumulado.toFixed(2);
         tvCerrado.textContent = productoCerradoAcumulado.toFixed(2);
         tvCombinado.textContent = '$' + combinado.toFixed(2);
@@ -450,7 +517,6 @@
 
     function eliminarRegistro(idAEliminar) {
         if (confirm('¿Eliminar esta entrada de venta?')) {
-            // Filtrado estricto por cadena de texto
             registros = registros.filter(reg => String(reg.id) !== String(idAEliminar));
             localStorage.setItem('caja_operativa', JSON.stringify(registros));
             actualizarSistema();
@@ -512,21 +578,43 @@
         lblDivisionDias.textContent = `Calculado para ${cantDias} día(s)`;
     }
 
-    // NUEVO MÓDULO EXCLUSIVO: Exporta solo la tarjeta del recibo refinado
+    // CONSTRUCCIÓN DINÁMICA DE LA LISTA DE CLIENTES EN EL TICKET
     function exportarTicketProfesional() {
+        ticketListaClientesDinamica.innerHTML = '';
+        const hoyStr = new Date().toDateString();
+        let contadorMovimientos = 0;
+
+        registros.forEach(reg => {
+            if (new Date(reg.fecha).toDateString() === hoyStr) {
+                contadorMovimientos++;
+                const filaTicket = document.createElement('div');
+                filaTicket.className = 'ticket-row';
+                filaTicket.style.marginBottom = '6px';
+                
+                const marcaTipo = reg.tipo === 'consumo' ? '' : ' (Cerrado)';
+                filaTicket.innerHTML = `
+                    <div style="color: #cbd5e1; font-size: 0.85rem;">${reg.cliente}${marcaTipo}</div>
+                    <div style="font-weight: 600; font-size: 0.9rem;">$${reg.monto.toFixed(2)}</div>
+                `;
+                ticketListaClientesDinamica.appendChild(filaTicket);
+            }
+        });
+
+        if (contadorMovimientos === 0) {
+            ticketListaClientesDinamica.innerHTML = '<div style="color:#64748b; font-size:0.85rem; text-align:center;">Sin operaciones hoy</div>';
+        }
+
         const ticketVisual = document.getElementById('ticket-visual');
-        
-        // Estampar fecha y hora exacta del momento de la descarga
         const ahora = new Date();
         tvFecha.textContent = ahora.toLocaleDateString() + ' - ' + ahora.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
 
         html2canvas(ticketVisual, {
             backgroundColor: '#0d1224',
-            scale: 3, // Multiplica la resolución por 3 para que no se pixelee al enviarlo por WhatsApp
+            scale: 3,
             logging: false
         }).then(canvas => {
             const link = document.createElement('a');
-            link.download = `Ticket_Caja_${ahora.toISOString().substring(0,10)}.png`;
+            link.download = `Auditoria_Caja_${ahora.toISOString().substring(0,10)}.png`;
             link.href = canvas.toDataURL('image/png');
             link.click();
         });
