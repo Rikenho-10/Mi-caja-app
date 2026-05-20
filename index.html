@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Club Control - Premium Box</title>
+    <title>Executive Control - Luxury Edition</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
+        /* Estilos Globales - Neo-Minimalismo Premium */
         body {
-            font-family: 'Segoe UI', Roboto, Helvetica, sans-serif;
-            background-color: #0b0f19;
-            color: #f8fafc;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #05070f;
+            color: #e2e8f0;
             margin: 0;
             padding: 20px;
             display: flex;
@@ -17,313 +18,299 @@
         }
         .container {
             width: 100%;
-            max-width: 650px;
-            background: #111827;
-            padding: 25px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            border: 1px solid #1f2937;
-        }
-        
-        /* Contenedor del Logotipo de tu Negocio */
-        .brand-container {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .brand-logo {
-            max-width: 120px;
-            height: auto;
-            border-radius: 50%;
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
-            object-fit: cover;
-        }
-        .brand-text-fallback {
-            text-transform: uppercase;
-            font-size: 1.6rem;
-            color: #3b82f6;
-            text-shadow: 0 0 10px rgba(59,130,246,0.3);
-            margin: 0;
-            font-weight: 700;
+            max-width: 600px;
+            background: #0d1224;
+            padding: 30px;
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* Pestañas */
+        /* Identidad de Marca */
+        .brand-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .brand-logo {
+            max-width: 90px;
+            height: auto;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 10px;
+        }
+        .brand-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #ffffff;
+            margin: 0;
+        }
+
+        /* Pestañas de Navegación */
         .tabs-nav {
             display: flex;
-            gap: 10px;
-            margin-bottom: 25px;
-            border-bottom: 2px solid #1f2937;
-            padding-bottom: 10px;
+            background: #070913;
+            padding: 6px;
+            border-radius: 14px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
         }
         .tab-button {
             flex: 1;
             padding: 12px;
-            background: #1f2937;
-            border: 1px solid #374151;
+            background: transparent;
+            border: none;
             border-radius: 10px;
-            font-weight: bold;
-            color: #9ca3af;
+            font-weight: 600;
+            color: #64748b;
+            font-size: 0.9rem;
             cursor: pointer;
+            transition: all 0.2s ease;
         }
         .tab-button.active {
-            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-            color: white;
-            box-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
-            border-color: #60a5fa;
+            background: #1e293b;
+            color: #ffffff;
         }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
-        
-        /* Dashboard Capturable */
-        .capture-area {
-            background: #111827;
-            padding: 15px;
-            border-radius: 14px;
-            margin-bottom: 20px;
-        }
-        .dashboard {
+
+        /* Estructura del Panel de Control Visual */
+        .dashboard-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
+            gap: 16px;
+            margin-bottom: 25px;
         }
         .card {
-            background: #1f2937;
-            border: 1px solid #374151;
-            padding: 15px;
-            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 16px;
             text-align: center;
+            transition: transform 0.2s;
         }
         .card-title {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             text-transform: uppercase;
-            color: #9ca3af;
-            margin-bottom: 5px;
+            color: #94a3b8;
+            margin-bottom: 8px;
+            letter-spacing: 1.5px;
             font-weight: 600;
-            letter-spacing: 1px;
         }
-        .card-value { font-size: 1.4rem; font-weight: bold; color: #ffffff; }
-        .full-width { grid-column: span 2; background: #111827; border: 1px dashed #4b5563;}
-        
-        .sobre-rojo { border-bottom: 4px solid #ef4444; }
-        .sobre-rojo .card-value { color: #f87171; }
-        .sobre-verde { border-bottom: 4px solid #10b981; }
-        .sobre-verde .card-value { color: #34d399; }
-        
-        /* Destacado de Consumos Oro */
-        .card-highlight {
-            background: linear-gradient(135deg, #1e1b4b, #311005);
-            border: 2px solid #f59e0b;
-            grid-column: span 2;
-            padding: 20px;
-            border-radius: 14px;
+        .card-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ffffff;
         }
-        .card-highlight .card-title { color: #fbbf24; font-size: 0.9rem; }
-        .card-highlight .card-value { font-size: 2.4rem; color: #fbbf24; text-shadow: 0 0 12px rgba(245,158,11,0.4); }
+        .grid-full { grid-column: span 2; }
 
-        /* Formularios y Botones */
-        .form-group { margin-bottom: 15px; }
-        .date-range-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 15px;
+        /* Detalles Cromáticos Sutiles de Categorías */
+        .card-total { border-top: 2px solid #3b82f6; background: rgba(59, 130, 246, 0.01); }
+        .card-rojo { border-top: 2px solid #ef4444; }
+        .card-rojo .card-value { color: #f87171; }
+        .card-verde { border-top: 2px solid #10b981; }
+        .card-verde .card-value { color: #34d399; }
+        
+        /* Foco Premium de Consumos */
+        .card-gold {
+            background: linear-gradient(180deg, rgba(245, 158, 11, 0.05) 0%, rgba(0,0,0,0) 100%);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+            border-top: 3px solid #f59e0b;
+            grid-column: span 2;
         }
-        label { display: block; margin-bottom: 5px; font-weight: 600; color: #9ca3af; font-size: 0.9rem; }
+        .card-gold .card-title { color: #fbbf24; }
+        .card-gold .card-value { font-size: 2.2rem; color: #fbbf24; }
+
+        /* Formularios Elegant */
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-size: 0.85rem; color: #94a3b8; letter-spacing: 0.5px; }
         input, select {
             width: 100%;
-            padding: 12px;
+            padding: 14px;
             box-sizing: border-box;
-            border: 1px solid #374151;
-            background-color: #1f2937;
-            color: white;
-            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background-color: #070913;
+            color: #ffffff;
+            border-radius: 12px;
             font-size: 1rem;
         }
-        
-        .btn-primary {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, #10b981, #059669);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        .btn-secundary {
-            width: 100%;
-            padding: 12px;
-            background: #3b82f6;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-bottom: 20px;
-        }
-        .btn-img-capture {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, #a855f7, #7c3aed);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 12px rgba(168, 85, 247, 0.2);
-        }
+        input:focus, select:focus { border-color: #3b82f6; outline: none; }
 
-        /* Tablas y Botón Borrar */
-        table { width: 100%; border-collapse: collapse; margin-top: 25px; }
-        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #1f2937; }
-        th { background-color: #1f2937; color: #9ca3af; font-size: 0.85rem; }
-        .badge { padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: bold; }
-        .badge-consumo { background-color: rgba(59, 130, 246, 0.2); color: #60a5fa; }
-        .badge-cerrado { background-color: rgba(245, 158, 11, 0.2); color: #fbbf24; }
-        
-        .btn-delete-row {
+        /* Botones del Ecosistema */
+        .btn-action {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-submit { background: #ffffff; color: #05070f; }
+        .btn-submit:hover { background: #e2e8f0; }
+        .btn-download {
             background: transparent;
-            color: #ef4444;
-            border: 1px solid rgba(239, 68, 68, 0.4);
-            padding: 5px 10px;
-            border-radius: 6px;
-            cursor: pointer;
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            margin-bottom: 30px;
         }
-        .btn-delete-row:hover { background: #ef4444; color: white; }
+        .btn-download:hover { background: rgba(255, 255, 255, 0.05); }
 
-        /* Reportes */
-        .report-grid { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; }
-        .report-neon-card {
-            background: #111827;
-            border: 1px solid #374151;
-            padding: 20px;
-            border-radius: 14px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        /* Tablas de Información */
+        table { width: 100%; border-collapse: collapse; margin-top: 25px; }
+        th, td { padding: 14px; text-align: left; border-bottom: 1px solid rgba(255, 255, 255, 0.04); font-size: 0.95rem; }
+        th { color: #64748b; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
+        .badge { padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; }
+        .badge-c { background: rgba(59, 130, 246, 0.1); color: #60a5fa; }
+        .badge-p { background: rgba(245, 158, 11, 0.1); color: #fbbf24; }
+        
+        .btn-row-delete {
+            background: transparent;
+            color: #64748b;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
         }
-        .border-amber { border-left: 5px solid #f59e0b; }
-        .border-emerald { border-left: 5px solid #10b981; }
-        .report-neon-card h4 { margin: 0; color: #ffffff; }
-        .report-neon-card p { margin: 5px 0 0 0; color: #9ca3af; font-size: 0.85rem; }
-        .report-val-highlight { font-size: 1.8rem; font-weight: bold; }
-        .color-amber { color: #fbbf24; }
-        .color-emerald { color: #34d399; }
-        .btn-clear { background-color: #374151; margin-top: 30px; width: 100%; color: #9ca3af; border: none; padding: 10px; border-radius: 10px; cursor: pointer;}
+        .btn-row-delete:hover { color: #ef4444; }
+
+        /* DISEÑO EXCLUSIVO DEL TICKET DE DESCARGA (Oculto en app, visible en la foto) */
+        #ticket-render-container {
+            position: absolute;
+            left: -9999px; /* Escondido del flujo de la pantalla */
+        }
+        .ticket-style {
+            width: 400px;
+            background-color: #0d1224;
+            color: #ffffff;
+            padding: 40px 30px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .ticket-divider { border-top: 1px dashed rgba(255, 255, 255, 0.15); margin: 20px 0; }
+        .ticket-row { display: flex; justify-content: space-between; margin-bottom: 12px; }
+        .ticket-row .label { color: #94a3b8; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
+        .ticket-row .value { font-weight: 700; font-size: 1.1rem; }
+        .ticket-row.grand-total { font-size: 1.4rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px; }
+        .ticket-row.gold-total .value { color: #fbbf24; font-size: 1.8rem; }
+        .ticket-footer { text-align: center; font-size: 0.75rem; color: #64748b; margin-top: 30px; letter-spacing: 1px; }
+
+        .btn-clear-data { background: transparent; color: #475569; border: none; font-size: 0.85rem; margin-top: 40px; width: 100%; cursor: pointer; }
+        .btn-clear-data:hover { color: #ef4444; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="brand-container">
-        <img src="logo.png" alt="Logo Club" class="brand-logo" onerror="this.style.display='none'; document.getElementById('fallback-title').style.display='block';">
-        <h1 id="fallback-title" class="brand-text-fallback" style="display: none;">Club Control</h1>
+    <div class="brand-header">
+        <img src="logo.png" alt="Logo" class="brand-logo" onerror="this.style.display='none';">
+        <div class="brand-title">Executive Control</div>
     </div>
 
     <div class="tabs-nav">
-        <button class="tab-button active" onclick="cambiarPestaña('registro')">Caja Activa</button>
-        <button class="tab-button" onclick="cambiarPestaña('reportes')">Reportes</button>
+        <button class="tab-button active" onclick="cambiarPestaña('registro')">Caja Diaria</button>
+        <button class="tab-button" onclick="cambiarPestaña('reportes')">Auditoría de Rangos</button>
     </div>
     
     <div id="tab-registro" class="tab-content active">
-        <div class="capture-area" id="dashboard-captura">
-            <div class="dashboard">
-                <div class="card">
-                    <div class="card-title">Venta del Día</div>
-                    <div class="card-value">$<span id="ventaDia">0.00</span></div>
-                </div>
-                <div class="card">
-                    <div class="card-title">Producto Cerrado</div>
-                    <div class="card-value">$<span id="productoCerrado">0.00</span></div>
-                </div>
-                <div class="card full-width">
-                    <div class="card-title">Total</div>
-                    <div class="card-value">$<span id="totalCombinado">0.00</span></div>
-                </div>
-                <div class="card sobre-rojo">
-                    <div class="card-title">Sobre Rojo (70%)</div>
-                    <div class="card-value">$<span id="sobreRojo">0.00</span></div>
-                </div>
-                <div class="card sobre-verde">
-                    <div class="card-title">Sobre Verde (30%)</div>
-                    <div class="card-value">$<span id="sobreVerde">0.00</span></div>
-                </div>
-                <div class="card card-highlight">
-                    <div class="card-title">★ Consumos ★</div>
-                    <div class="card-value"><span id="consumosMetrica">0.00</span></div>
-                </div>
+        
+        <div class="dashboard-grid">
+            <div class="card">
+                <div class="card-title">Venta del Día</div>
+                <div class="card-value">$<span id="ventaDia">0.00</span></div>
+            </div>
+            <div class="card">
+                <div class="card-title">Producto Cerrado</div>
+                <div class="card-value">$<span id="productoCerrado">0.00</span></div>
+            </div>
+            <div class="card grid-full card-total">
+                <div class="card-title">Total</div>
+                <div class="card-value">$<span id="totalCombinado">0.00</span></div>
+            </div>
+            <div class="card card-rojo">
+                <div class="card-title">Sobre Rojo</div>
+                <div class="card-value">$<span id="sobreRojo">0.00</span></div>
+            </div>
+            <div class="card card-verde">
+                <div class="card-title">Sobre Verde</div>
+                <div class="card-value">$<span id="sobreVerde">0.00</span></div>
+            </div>
+            <div class="card card-gold">
+                <div class="card-title">★ Consumos ★</div>
+                <div class="card-value"><span id="consumosMetrica">0.00</span></div>
             </div>
         </div>
 
-        <button class="btn-img-capture" onclick="descargarReporteImagen()">Descargar Reporte Diario (Imagen)</button>
+        <button class="btn-action btn-download" onclick="exportarTicketProfesional()">Exportar Reporte Ejecutivo (PNG)</button>
 
         <form id="formOperacion">
             <div class="form-group">
-                <label for="cliente">Cliente / Nota</label>
-                <input type="text" id="cliente" required>
+                <label>Cliente / Concepto</label>
+                <input type="text" id="cliente" required placeholder="Identificador">
             </div>
             <div class="form-group">
-                <label for="tipo">Tipo</label>
+                <label>Tipo de Flujo</label>
                 <select id="tipo">
                     <option value="consumo">Consumo Regular</option>
                     <option value="cerrado">Producto Cerrado</option>
                 </select>
             </div>
             <div class="form-group">
-                <label for="monto">Monto ($)</label>
-                <input type="number" id="monto" min="0.01" step="any" required>
+                <label>Monto Absoluto ($)</label>
+                <input type="number" id="monto" min="0.01" step="any" required placeholder="0.00">
             </div>
-            <button type="submit" class="btn-primary">Registrar</button>
+            <button type="submit" class="btn-action btn-submit">Registrar Nota</button>
         </form>
 
-        <h2>Movimientos de Hoy</h2>
+        <h2>Registros de la Jornada</h2>
         <table>
             <thead>
                 <tr>
                     <th>Detalle</th>
                     <th>Tipo</th>
                     <th>Monto</th>
-                    <th>Borrar</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody id="historialLineas"></tbody>
         </table>
-        <button class="btn-clear" id="btnReset">Borrar Historial Completo</button>
+        <button class="btn-clear-data" id="btnReset">Reiniciar Parámetros de Almacenamiento</button>
     </div>
 
     <div id="tab-reportes" class="tab-content">
-        <h2>Filtro de Rango</h2>
+        <h2>Filtro de Rango Temporal</h2>
         <div class="date-range-container">
             <div>
-                <label>Inicio</label>
+                <label>Fecha Inicial</label>
                 <input type="date" id="fechaInicio">
             </div>
             <div>
-                <label>Fin</label>
+                <label>Fecha Final</label>
                 <input type="date" id="fechaFin">
             </div>
         </div>
-        <button class="btn-secundary" onclick="generarReportePersonalizado()">Calcular Rango</button>
+        <button class="btn-action btn-submit" style="margin-bottom: 25px;" onclick="generarReportePersonalizado()">Ejecutar Auditoría</button>
         
         <div class="report-grid">
             <div class="report-neon-card border-amber">
                 <div>
-                    <h4>Consumos</h4>
-                    <p>Suma total del rango / 90</p>
+                    <h4>Consumos Totales</h4>
+                    <p>Cálculo del rango / 90</p>
                 </div>
                 <div class="report-val-highlight color-amber" id="repTotalConsumos">0.00</div>
             </div>
             <div class="report-neon-card border-amber">
                 <div>
                     <h4>Promedio de Consumos</h4>
-                    <p id="lblDivisionDias">Consumos totales / días del rango</p>
+                    <p id="lblDivisionDias">Consumos / total días</p>
                 </div>
                 <div class="report-val-highlight color-amber" id="repPromedioConsumos">0.00</div>
             </div>
             <div class="report-neon-card border-emerald">
                 <div>
                     <h4>Sobres Verdes</h4>
-                    <p>Suma de sobres verdes del rango</p>
+                    <p>Suma de sobres verdes acumulados</p>
                 </div>
                 <div class="report-val-highlight color-emerald" id="repSumaVerdes">0.00</div>
             </div>
@@ -331,15 +318,62 @@
     </div>
 </div>
 
+<div id="ticket-render-container">
+    <div class="ticket-style" id="ticket-visual">
+        <div style="text-align: center; margin-bottom: 20px;">
+            <div class="brand-title" style="font-size: 1.6rem;">Reporte de Caja</div>
+            <div style="font-size: 0.8rem; color: #64748b; margin-top: 5px;" id="ticket-fecha-emision">00/00/0000 00:00</div>
+        </div>
+        <div class="ticket-divider"></div>
+        
+        <div class="ticket-row">
+            <div class="label">Venta del Día</div>
+            <div class="value">$<span id="t-ventaDia">0.00</span></div>
+        </div>
+        <div class="ticket-row">
+            <div class="label">Producto Cerrado</div>
+            <div class="value">$<span id="t-productoCerrado">0.00</span></div>
+        </div>
+        <div class="ticket-row grand-total">
+            <div class="label" style="color: #ffffff;">Total</div>
+            <div class="value" id="t-totalCombinado">$0.00</div>
+        </div>
+        
+        <div class="ticket-divider"></div>
+        
+        <div class="ticket-row">
+            <div class="label">Sobre Rojo (70%)</div>
+            <div class="value">$<span id="t-sobreRojo">0.00</span></div>
+        </div>
+        <div class="ticket-row">
+            <div class="label">Sobre Verde (30%)</div>
+            <div class="value">$<span id="t-sobreVerde">0.00</span></div>
+        </div>
+        
+        <div class="ticket-divider"></div>
+        
+        <div class="ticket-row gold-total">
+            <div class="label" style="color: #fbbf24; align-self: center;">★ Consumos ★</div>
+            <div class="value" id="t-consumosMetrica">0.00</div>
+        </div>
+        
+        <div class="ticket-footer">
+            SISTEMA DE AUDITORÍA INTERNA DIGITAL
+        </div>
+    </div>
+</div>
+
 <script>
     let registros = JSON.parse(localStorage.getItem('caja_operativa')) || [];
 
+    // Elementos del DOM
     const formOperacion = document.getElementById('formOperacion');
     const clienteInput = document.getElementById('cliente');
     const tipoSelect = document.getElementById('tipo');
     const montoInput = document.getElementById('monto');
     const historialLineas = document.getElementById('historialLineas');
 
+    // Nodos Dashboard de la App
     const txtVentaDia = document.getElementById('ventaDia');
     const txtProductoCerrado = document.getElementById('productoCerrado');
     const txtTotalCombinado = document.getElementById('totalCombinado');
@@ -347,6 +381,16 @@
     const txtSobreVerde = document.getElementById('sobreVerde');
     const txtConsumosMetrica = document.getElementById('consumosMetrica');
 
+    // Nodos del Ticket Oculto
+    const tvVenta = document.getElementById('t-ventaDia');
+    const tvCerrado = document.getElementById('t-productoCerrado');
+    const tvCombinado = document.getElementById('t-totalCombinado');
+    const tvRojo = document.getElementById('t-sobreRojo');
+    const tvVerde = document.getElementById('t-sobreVerde');
+    const tvConsumos = document.getElementById('t-consumosMetrica');
+    const tvFecha = document.getElementById('ticket-fecha-emision');
+
+    // Nodos Reportes
     const fInicio = document.getElementById('fechaInicio');
     const fFin = document.getElementById('fechaFin');
     const txtRepTotalConsumos = document.getElementById('repTotalConsumos');
@@ -383,18 +427,30 @@
         });
 
         const combinado = ventaDiaAcumulado + productoCerradoAcumulado;
+        const rojo = combinado * 0.70;
+        const verde = combinado * 0.30;
+        const consumos = ventaDiaAcumulado / 90;
         
+        // Sincronizar UI de la App
         txtVentaDia.textContent = ventaDiaAcumulado.toFixed(2);
         txtProductoCerrado.textContent = productoCerradoAcumulado.toFixed(2);
         txtTotalCombinado.textContent = combinado.toFixed(2);
-        txtSobreRojo.textContent = (combinado * 0.70).toFixed(2);
-        txtSobreVerde.textContent = (combinado * 0.30).toFixed(2);
-        txtConsumosMetrica.textContent = (ventaDiaAcumulado / 90).toFixed(2);
+        txtSobreRojo.textContent = rojo.toFixed(2);
+        txtSobreVerde.textContent = verde.toFixed(2);
+        txtConsumosMetrica.textContent = consumos.toFixed(2);
+
+        // Sincronizar UI del Ticket Oculto inmediatamente
+        tvVenta.textContent = ventaDiaAcumulado.toFixed(2);
+        tvCerrado.textContent = productoCerradoAcumulado.toFixed(2);
+        tvCombinado.textContent = '$' + combinado.toFixed(2);
+        tvRojo.textContent = rojo.toFixed(2);
+        tvVerde.textContent = verde.toFixed(2);
+        tvConsumos.textContent = consumos.toFixed(2);
     }
 
-    // CORRECCIÓN DE BORRADO: Comparación de identificadores de forma estricta como texto
     function eliminarRegistro(idAEliminar) {
-        if (confirm('¿Eliminar esta entrada?')) {
+        if (confirm('¿Eliminar esta entrada de venta?')) {
+            // Filtrado estricto por cadena de texto
             registros = registros.filter(reg => String(reg.id) !== String(idAEliminar));
             localStorage.setItem('caja_operativa', JSON.stringify(registros));
             actualizarSistema();
@@ -408,15 +464,15 @@
         registros.forEach(reg => {
             if (new Date(reg.fecha).toDateString() === hoyStr) {
                 const tr = document.createElement('tr');
-                const claseBadge = reg.tipo === 'consumo' ? 'badge-consumo' : 'badge-cerrado';
+                const claseBadge = reg.tipo === 'consumo' ? 'badge-c' : 'badge-p';
                 const textoTipo = reg.tipo === 'consumo' ? 'Consumo' : 'P. Cerrado';
 
                 tr.innerHTML = `
                     <td>${reg.cliente}</td>
                     <td><span class="badge ${claseBadge}">${textoTipo}</span></td>
                     <td>$${reg.monto.toFixed(2)}</td>
-                    <td>
-                        <button class="btn-delete-row" onclick="eliminarRegistro('${reg.id}')">✕</button>
+                    <td style="text-align: right;">
+                        <button class="btn-row-delete" onclick="eliminarRegistro('${reg.id}')">✕</button>
                     </td>
                 `;
                 historialLineas.appendChild(tr);
@@ -447,8 +503,6 @@
 
         const totalConsumosUnidades = totalVentaRango / 90;
         const promedioDiarioConsumos = totalConsumosUnidades / cantDias;
-        
-        // Suma acumulada de los sobres verdes generados en ese lapso de tiempo
         const sumaSobresVerdesRango = (totalVentaRango + totalCerradoRango) * 0.30;
 
         txtRepTotalConsumos.textContent = totalConsumosUnidades.toFixed(2);
@@ -458,18 +512,21 @@
         lblDivisionDias.textContent = `Calculado para ${cantDias} día(s)`;
     }
 
-    // NUEVA FUNCIÓN: Genera captura de pantalla del Dashboard actual
-    function descargarReporteImagen() {
-        const capturaArea = document.getElementById('dashboard-captura');
+    // NUEVO MÓDULO EXCLUSIVO: Exporta solo la tarjeta del recibo refinado
+    function exportarTicketProfesional() {
+        const ticketVisual = document.getElementById('ticket-visual');
         
-        // Configuración para que respete el estilo y colores oscuros en la foto
-        html2canvas(capturaArea, {
-            backgroundColor: '#111827',
-            scale: 2 
+        // Estampar fecha y hora exacta del momento de la descarga
+        const ahora = new Date();
+        tvFecha.textContent = ahora.toLocaleDateString() + ' - ' + ahora.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+
+        html2canvas(ticketVisual, {
+            backgroundColor: '#0d1224',
+            scale: 3, // Multiplica la resolución por 3 para que no se pixelee al enviarlo por WhatsApp
+            logging: false
         }).then(canvas => {
             const link = document.createElement('a');
-            // Guarda el archivo con la fecha del día
-            link.download = `Reporte_${new Date().toISOString().substring(0,10)}.png`;
+            link.download = `Ticket_Caja_${ahora.toISOString().substring(0,10)}.png`;
             link.href = canvas.toDataURL('image/png');
             link.click();
         });
@@ -484,7 +541,6 @@
         e.preventDefault();
 
         const nuevoRegistro = {
-            // Genera ID alfanumérico ultra seguro para evitar problemas de tipos de variables
             id: 'id_' + Date.now() + '_' + Math.floor(Math.random() * 1000),
             cliente: clienteInput.value.trim(),
             tipo: tipoSelect.value,
@@ -501,7 +557,7 @@
     });
 
     document.getElementById('btnReset').addEventListener('click', function() {
-        if (confirm('¿Borrar toda la base de datos de forma permanente?')) {
+        if (confirm('¿Vaciar por completo el historial guardado?')) {
             registros = [];
             localStorage.removeItem('caja_operativa');
             actualizarSistema();
