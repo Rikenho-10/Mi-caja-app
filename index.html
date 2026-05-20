@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Club Control - Sistema de Caja VIP</title>
+    <title>Club Control - Premium Box</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
-        /* Diseño Estilo Club Nocturno / Lounge - Modo Oscuro y Neón */
         body {
             font-family: 'Segoe UI', Roboto, Helvetica, sans-serif;
-            background-color: #0b0f19; /* Fondo oscuro premium */
+            background-color: #0b0f19;
             color: #f8fafc;
             margin: 0;
             padding: 20px;
@@ -18,21 +18,35 @@
         .container {
             width: 100%;
             max-width: 650px;
-            background: #111827; /* Tarjeta contenedora gris oscuro */
+            background: #111827;
             padding: 25px;
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(59, 130, 246, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             border: 1px solid #1f2937;
         }
-        h1, h2, h3 {
+        
+        /* Contenedor del Logotipo de tu Negocio */
+        .brand-container {
             text-align: center;
-            color: #ffffff;
-            font-weight: 700;
-            letter-spacing: 0.5px;
+            margin-bottom: 20px;
         }
-        h1 { text-transform: uppercase; font-size: 1.6rem; color: #3b82f6; text-shadow: 0 0 10px rgba(59,130,246,0.3); }
+        .brand-logo {
+            max-width: 120px;
+            height: auto;
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+            object-fit: cover;
+        }
+        .brand-text-fallback {
+            text-transform: uppercase;
+            font-size: 1.6rem;
+            color: #3b82f6;
+            text-shadow: 0 0 10px rgba(59,130,246,0.3);
+            margin: 0;
+            font-weight: 700;
+        }
 
-        /* Navegación Estilo Club */
+        /* Pestañas */
         .tabs-nav {
             display: flex;
             gap: 10px;
@@ -49,7 +63,6 @@
             font-weight: bold;
             color: #9ca3af;
             cursor: pointer;
-            transition: all 0.3s ease;
         }
         .tab-button.active {
             background: linear-gradient(135deg, #3b82f6, #1d4ed8);
@@ -60,12 +73,17 @@
         .tab-content { display: none; }
         .tab-content.active { display: block; }
         
-        /* Dashboard Metálico */
+        /* Dashboard Capturable */
+        .capture-area {
+            background: #111827;
+            padding: 15px;
+            border-radius: 14px;
+            margin-bottom: 20px;
+        }
         .dashboard {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 12px;
-            margin-bottom: 25px;
         }
         .card {
             background: #1f2937;
@@ -85,25 +103,23 @@
         .card-value { font-size: 1.4rem; font-weight: bold; color: #ffffff; }
         .full-width { grid-column: span 2; background: #111827; border: 1px dashed #4b5563;}
         
-        /* Luces de Neón para los Sobres */
-        .sobre-rojo { border-bottom: 4px solid #ef4444; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.15); }
+        .sobre-rojo { border-bottom: 4px solid #ef4444; }
         .sobre-rojo .card-value { color: #f87171; }
-        .sobre-verde { border-bottom: 4px solid #10b981; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.15); }
+        .sobre-verde { border-bottom: 4px solid #10b981; }
         .sobre-verde .card-value { color: #34d399; }
         
-        /* Foco VIP: Consumos Destacado Oro */
+        /* Destacado de Consumos Oro */
         .card-highlight {
             background: linear-gradient(135deg, #1e1b4b, #311005);
             border: 2px solid #f59e0b;
             grid-column: span 2;
             padding: 20px;
             border-radius: 14px;
-            box-shadow: 0 0 15px rgba(245, 158, 11, 0.2);
         }
         .card-highlight .card-title { color: #fbbf24; font-size: 0.9rem; }
         .card-highlight .card-value { font-size: 2.4rem; color: #fbbf24; text-shadow: 0 0 12px rgba(245,158,11,0.4); }
 
-        /* Controles, Filtros y Formularios */
+        /* Formularios y Botones */
         .form-group { margin-bottom: 15px; }
         .date-range-container {
             display: grid;
@@ -122,7 +138,6 @@
             border-radius: 10px;
             font-size: 1rem;
         }
-        input:focus, select:focus { border-color: #3b82f6; outline: none; }
         
         .btn-primary {
             width: 100%;
@@ -131,13 +146,9 @@
             color: white;
             border: none;
             border-radius: 10px;
-            font-size: 1rem;
             font-weight: bold;
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
         }
-        .btn-primary:hover { background: #10b981; }
-        
         .btn-secundary {
             width: 100%;
             padding: 12px;
@@ -149,16 +160,27 @@
             cursor: pointer;
             margin-bottom: 20px;
         }
+        .btn-img-capture {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #a855f7, #7c3aed);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(168, 85, 247, 0.2);
+        }
 
-        /* Estilo de Tablas y Botón Borrar */
+        /* Tablas y Botón Borrar */
         table { width: 100%; border-collapse: collapse; margin-top: 25px; }
         th, td { padding: 12px; text-align: left; border-bottom: 1px solid #1f2937; }
-        th { background-color: #1f2937; color: #9ca3af; font-size: 0.85rem; text-transform: uppercase; }
+        th { background-color: #1f2937; color: #9ca3af; font-size: 0.85rem; }
         .badge { padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: bold; }
-        .badge-consumo { background-color: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid #3b82f6; }
-        .badge-cerrado { background-color: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid #f59e0b; }
+        .badge-consumo { background-color: rgba(59, 130, 246, 0.2); color: #60a5fa; }
+        .badge-cerrado { background-color: rgba(245, 158, 11, 0.2); color: #fbbf24; }
         
-        /* Botón de eliminación en línea */
         .btn-delete-row {
             background: transparent;
             color: #ef4444;
@@ -166,13 +188,10 @@
             padding: 5px 10px;
             border-radius: 6px;
             cursor: pointer;
-            font-weight: bold;
-            font-size: 0.85rem;
-            transition: all 0.2s;
         }
-        .btn-delete-row:hover { background: #ef4444; color: white; box-shadow: 0 0 8px #ef4444; }
+        .btn-delete-row:hover { background: #ef4444; color: white; }
 
-        /* Estructuras de las Tarjetas de Reportes Avanzados */
+        /* Reportes */
         .report-grid { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; }
         .report-neon-card {
             background: #111827;
@@ -185,125 +204,126 @@
         }
         .border-amber { border-left: 5px solid #f59e0b; }
         .border-emerald { border-left: 5px solid #10b981; }
-        .report-neon-card h4 { margin: 0; color: #ffffff; font-size: 1.1rem; }
+        .report-neon-card h4 { margin: 0; color: #ffffff; }
         .report-neon-card p { margin: 5px 0 0 0; color: #9ca3af; font-size: 0.85rem; }
         .report-val-highlight { font-size: 1.8rem; font-weight: bold; }
-        .color-amber { color: #fbbf24; text-shadow: 0 0 8px rgba(245,158,11,0.2); }
-        .color-emerald { color: #34d399; text-shadow: 0 0 8px rgba(16,185,129,0.2); }
-
+        .color-amber { color: #fbbf24; }
+        .color-emerald { color: #34d399; }
         .btn-clear { background-color: #374151; margin-top: 30px; width: 100%; color: #9ca3af; border: none; padding: 10px; border-radius: 10px; cursor: pointer;}
-        .btn-clear:hover { background-color: #4b5563; color: white; }
     </style>
 </head>
 <body>
 
 <div class="container">
+    <div class="brand-container">
+        <img src="logo.png" alt="Logo Club" class="brand-logo" onerror="this.style.display='none'; document.getElementById('fallback-title').style.display='block';">
+        <h1 id="fallback-title" class="brand-text-fallback" style="display: none;">Club Control</h1>
+    </div>
+
     <div class="tabs-nav">
         <button class="tab-button active" onclick="cambiarPestaña('registro')">Caja Activa</button>
-        <button class="tab-button" onclick="cambiarPestaña('reportes')">Reportes Filtro VIP</button>
+        <button class="tab-button" onclick="cambiarPestaña('reportes')">Reportes</button>
     </div>
     
     <div id="tab-registro" class="tab-content active">
-        <h1>Panel de Control</h1>
-        
-        <div class="dashboard">
-            <div class="card">
-                <div class="card-title">Venta del Día</div>
-                <div class="card-value">$<span id="ventaDia">0.00</span></div>
-            </div>
-            <div class="card">
-                <div class="card-title">Producto Cerrado</div>
-                <div class="card-value">$<span id="productoCerrado">0.00</span></div>
-            </div>
-            <div class="card full-width">
-                <div class="card-title">Total Combinado</div>
-                <div class="card-value">$<span id="totalCombinado">0.00</span></div>
-            </div>
-            <div class="card sobre-rojo">
-                <div class="card-title">Sobre Rojo (70%)</div>
-                <div class="card-value">$<span id="sobreRojo">0.00</span></div>
-            </div>
-            <div class="card sobre-verde">
-                <div class="card-title">Sobre Verde (30%)</div>
-                <div class="card-value">$<span id="sobreVerde">0.00</span></div>
-            </div>
-            <div class="card card-highlight">
-                <div class="card-title">★ CONSUMOS DE HOY (Venta / 90) ★</div>
-                <div class="card-value"><span id="consumosMetrica">0.00</span></div>
+        <div class="capture-area" id="dashboard-captura">
+            <div class="dashboard">
+                <div class="card">
+                    <div class="card-title">Venta del Día</div>
+                    <div class="card-value">$<span id="ventaDia">0.00</span></div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Producto Cerrado</div>
+                    <div class="card-value">$<span id="productoCerrado">0.00</span></div>
+                </div>
+                <div class="card full-width">
+                    <div class="card-title">Total</div>
+                    <div class="card-value">$<span id="totalCombinado">0.00</span></div>
+                </div>
+                <div class="card sobre-rojo">
+                    <div class="card-title">Sobre Rojo (70%)</div>
+                    <div class="card-value">$<span id="sobreRojo">0.00</span></div>
+                </div>
+                <div class="card sobre-verde">
+                    <div class="card-title">Sobre Verde (30%)</div>
+                    <div class="card-value">$<span id="sobreVerde">0.00</span></div>
+                </div>
+                <div class="card card-highlight">
+                    <div class="card-title">★ Consumos ★</div>
+                    <div class="card-value"><span id="consumosMetrica">0.00</span></div>
+                </div>
             </div>
         </div>
 
+        <button class="btn-img-capture" onclick="descargarReporteImagen()">Descargar Reporte Diario (Imagen)</button>
+
         <form id="formOperacion">
             <div class="form-group">
-                <label for="cliente">Nombre / Detalle del Cliente</label>
-                <input type="text" id="cliente" placeholder="Identificador de la nota" required>
+                <label for="cliente">Cliente / Nota</label>
+                <input type="text" id="cliente" required>
             </div>
             <div class="form-group">
-                <label for="tipo">Clasificación del Ingreso</label>
+                <label for="tipo">Tipo</label>
                 <select id="tipo">
-                    <option value="consumo">Consumo Regular (Afecta Venta del Día)</option>
-                    <option value="cerrado">Producto Cerrado (Excluido de Venta del Día)</option>
+                    <option value="consumo">Consumo Regular</option>
+                    <option value="cerrado">Producto Cerrado</option>
                 </select>
             </div>
             <div class="form-group">
-                <label for="monto">Monto cobrado ($)</label>
-                <input type="number" id="monto" min="0.01" step="any" placeholder="0.00" required>
+                <label for="monto">Monto ($)</label>
+                <input type="number" id="monto" min="0.01" step="any" required>
             </div>
-            <button type="submit" class="btn-primary">Registrar Movimiento</button>
+            <button type="submit" class="btn-primary">Registrar</button>
         </form>
 
-        <h2>Historial de Ventas (Hoy)</h2>
+        <h2>Movimientos de Hoy</h2>
         <table>
             <thead>
                 <tr>
                     <th>Detalle</th>
                     <th>Tipo</th>
                     <th>Monto</th>
-                    <th>Acción</th>
+                    <th>Borrar</th>
                 </tr>
             </thead>
             <tbody id="historialLineas"></tbody>
         </table>
-        <button class="btn-clear" id="btnReset">Formatear Toda la Base de Datos</button>
+        <button class="btn-clear" id="btnReset">Borrar Historial Completo</button>
     </div>
 
     <div id="tab-reportes" class="tab-content">
-        <h1>Filtro de Fechas Personalizado</h1>
-        <p style="text-align: center; color: #9ca3af; margin-bottom: 20px;">Establece los días que deseas auditar para el cálculo inteligente:</p>
-        
+        <h2>Filtro de Rango</h2>
         <div class="date-range-container">
             <div>
-                <label for="fechaInicio">Fecha Inicial</label>
+                <label>Inicio</label>
                 <input type="date" id="fechaInicio">
             </div>
             <div>
-                <label for="fechaFin">Fecha Final</label>
+                <label>Fin</label>
                 <input type="date" id="fechaFin">
             </div>
         </div>
-        <button class="btn-secundary" onclick="generarReportePersonalizado()">Calcular Periodo</button>
+        <button class="btn-secundary" onclick="generarReportePersonalizado()">Calcular Rango</button>
         
         <div class="report-grid">
             <div class="report-neon-card border-amber">
                 <div>
-                    <h4>Total de Consumos Unidades</h4>
-                    <p id="lblRangoFechas">Suma del rango / 90</p>
+                    <h4>Consumos</h4>
+                    <p>Suma total del rango / 90</p>
                 </div>
                 <div class="report-val-highlight color-amber" id="repTotalConsumos">0.00</div>
             </div>
-            
             <div class="report-neon-card border-amber">
                 <div>
-                    <h4>Promedio Diario de Consumos</h4>
-                    <p id="lblDivisionDias">Consumos totales / N° de días</p>
+                    <h4>Promedio de Consumos</h4>
+                    <p id="lblDivisionDias">Consumos totales / días del rango</p>
                 </div>
                 <div class="report-val-highlight color-amber" id="repPromedioConsumos">0.00</div>
             </div>
-            
             <div class="report-neon-card border-emerald">
                 <div>
-                    <h4>Acumulado en Sobres Verdes</h4>
-                    <p>30% de todo el dinero del rango</p>
+                    <h4>Sobres Verdes</h4>
+                    <p>Suma de sobres verdes del rango</p>
                 </div>
                 <div class="report-val-highlight color-emerald" id="repSumaVerdes">0.00</div>
             </div>
@@ -312,17 +332,14 @@
 </div>
 
 <script>
-    // Recuperar base de datos
     let registros = JSON.parse(localStorage.getItem('caja_operativa')) || [];
 
-    // Captura de objetos DOM
     const formOperacion = document.getElementById('formOperacion');
     const clienteInput = document.getElementById('cliente');
     const tipoSelect = document.getElementById('tipo');
     const montoInput = document.getElementById('monto');
     const historialLineas = document.getElementById('historialLineas');
 
-    // Nodos Dashboard
     const txtVentaDia = document.getElementById('ventaDia');
     const txtProductoCerrado = document.getElementById('productoCerrado');
     const txtTotalCombinado = document.getElementById('totalCombinado');
@@ -330,16 +347,13 @@
     const txtSobreVerde = document.getElementById('sobreVerde');
     const txtConsumosMetrica = document.getElementById('consumosMetrica');
 
-    // Nodos Reporte Avanzado
     const fInicio = document.getElementById('fechaInicio');
     const fFin = document.getElementById('fechaFin');
     const txtRepTotalConsumos = document.getElementById('repTotalConsumos');
     const txtRepPromedioConsumos = document.getElementById('repPromedioConsumos');
     const txtRepSumaVerdes = document.getElementById('repSumaVerdes');
-    const lblRangoFechas = document.getElementById('lblRangoFechas');
     const lblDivisionDias = document.getElementById('lblDivisionDias');
 
-    // Cambiar Pestañas
     function cambiarPestaña(pestaña) {
         document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
         document.querySelectorAll('.tab-button').forEach(tb => tb.classList.remove('active'));
@@ -347,24 +361,15 @@
         event.currentTarget.classList.add('active');
         
         if (pestaña === 'reportes') {
-            establecerFechasPorDefecto();
+            const hoy = new Date();
+            const haceUnaSemana = new Date();
+            haceUnaSemana.setDate(hoy.getDate() - 6);
+            fFin.value = hoy.toISOString().substring(0, 10);
+            fInicio.value = haceUnaSemana.toISOString().substring(0, 10);
             generarReportePersonalizado();
         }
     }
 
-    // Poner fechas por defecto (última semana) si están vacías
-    function establecerFechasPorDefecto() {
-        if (!fInicio.value || !fFin.value) {
-            const hoy = new Date();
-            const haceUnaSemana = new Date();
-            haceUnaSemana.setDate(hoy.getDate() - 6);
-            
-            fFin.value = hoy.toISOString().substring(0, 10);
-            fInicio.value = haceUnaSemana.toISOString().substring(0, 10);
-        }
-    }
-
-    // Lógica Matemática de la Pantalla de Entrada
     function calcularFinanzasDiarias() {
         let ventaDiaAcumulado = 0;
         let productoCerradoAcumulado = 0;
@@ -387,11 +392,10 @@
         txtConsumosMetrica.textContent = (ventaDiaAcumulado / 90).toFixed(2);
     }
 
-    // NUEVA FUNCIÓN: Eliminar una sola nota errónea
+    // CORRECCIÓN DE BORRADO: Comparación de identificadores de forma estricta como texto
     function eliminarRegistro(idAEliminar) {
-        if (confirm('¿Deseas eliminar este registro de venta? Se recalcularán los totales.')) {
-            // Filtrar quitando el elemento con el ID coincidente
-            registros = registros.filter(reg => reg.id !== idAEliminar);
+        if (confirm('¿Eliminar esta entrada?')) {
+            registros = registros.filter(reg => String(reg.id) !== String(idAEliminar));
             localStorage.setItem('caja_operativa', JSON.stringify(registros));
             actualizarSistema();
         }
@@ -412,7 +416,7 @@
                     <td><span class="badge ${claseBadge}">${textoTipo}</span></td>
                     <td>$${reg.monto.toFixed(2)}</td>
                     <td>
-                        <button class="btn-delete-row" onclick="eliminarRegistro(${reg.id})">✕</button>
+                        <button class="btn-delete-row" onclick="eliminarRegistro('${reg.id}')">✕</button>
                     </td>
                 `;
                 historialLineas.appendChild(tr);
@@ -420,15 +424,12 @@
         });
     }
 
-    // NUEVA LÓGICA: Procesador de reportes dinámicos con promedios diarios
     function generarReportePersonalizado() {
         if (!fInicio.value || !fFin.value) return;
 
-        // Formatear fechas a las 00:00:00 y 23:59:59 para abarcar los días completos
         const fechaInicioObj = new Date(fInicio.value + 'T00:00:00');
         const fechaFinObj = new Date(fFin.value + 'T23:59:59');
 
-        // Calcular la cantidad de días del rango matemático
         const diferenciaMs = fechaFinObj - fechaInicioObj;
         let cantDias = Math.ceil(diferenciaMs / (1000 * 60 * 60 * 24));
         if (cantDias <= 0) cantDias = 1;
@@ -439,28 +440,39 @@
         registros.forEach(reg => {
             const fechaReg = new Date(reg.fecha);
             if (fechaReg >= fechaInicioObj && fechaReg <= fechaFinObj) {
-                if (reg.tipo === 'consumo') {
-                    totalVentaRango += reg.monto;
-                } else if (reg.tipo === 'cerrado') {
-                    totalCerradoRango += reg.monto;
-                }
+                if (reg.tipo === 'consumo') totalVentaRango += reg.monto;
+                else if (reg.tipo === 'cerrado') totalCerradoRango += reg.monto;
             }
         });
 
-        // Aplicación matemática exacta de las fórmulas requeridas
         const totalConsumosUnidades = totalVentaRango / 90;
         const promedioDiarioConsumos = totalConsumosUnidades / cantDias;
-        const totalDinerosCombinado = totalVentaRango + totalCerradoRango;
-        const sumaSobresVerdesRango = totalDinerosCombinado * 0.30;
+        
+        // Suma acumulada de los sobres verdes generados en ese lapso de tiempo
+        const sumaSobresVerdesRango = (totalVentaRango + totalCerradoRango) * 0.30;
 
-        // Mostrar resultados en la pestaña de reportes
         txtRepTotalConsumos.textContent = totalConsumosUnidades.toFixed(2);
         txtRepPromedioConsumos.textContent = promedioDiarioConsumos.toFixed(2);
         txtRepSumaVerdes.textContent = sumaSobresVerdesRango.toFixed(2);
 
-        // Textos dinámicos informativos para el usuario
-        lblRangoFechas.textContent = `Suma de ventas del rango / 90`;
-        lblDivisionDias.textContent = `Calculado para un periodo de ${cantDias} día(s) analizado(s)`;
+        lblDivisionDias.textContent = `Calculado para ${cantDias} día(s)`;
+    }
+
+    // NUEVA FUNCIÓN: Genera captura de pantalla del Dashboard actual
+    function descargarReporteImagen() {
+        const capturaArea = document.getElementById('dashboard-captura');
+        
+        // Configuración para que respete el estilo y colores oscuros en la foto
+        html2canvas(capturaArea, {
+            backgroundColor: '#111827',
+            scale: 2 
+        }).then(canvas => {
+            const link = document.createElement('a');
+            // Guarda el archivo con la fecha del día
+            link.download = `Reporte_${new Date().toISOString().substring(0,10)}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        });
     }
 
     function actualizarSistema() {
@@ -468,12 +480,12 @@
         renderizarTablaHoy();
     }
 
-    // Evento para capturar un envío de formulario
     formOperacion.addEventListener('submit', function(e) {
         e.preventDefault();
 
         const nuevoRegistro = {
-            id: Date.now(), // ID único basado en milisegundos para poder ubicar y borrar la fila exacta
+            // Genera ID alfanumérico ultra seguro para evitar problemas de tipos de variables
+            id: 'id_' + Date.now() + '_' + Math.floor(Math.random() * 1000),
             cliente: clienteInput.value.trim(),
             tipo: tipoSelect.value,
             monto: parseFloat(montoInput.value),
@@ -488,16 +500,14 @@
         clienteInput.focus();
     });
 
-    // Resetear base completa
     document.getElementById('btnReset').addEventListener('click', function() {
-        if (confirm('ATENCIÓN: Esto eliminará permanentemente TODO el historial de todos los días de la memoria. ¿Proceder?')) {
+        if (confirm('¿Borrar toda la base de datos de forma permanente?')) {
             registros = [];
             localStorage.removeItem('caja_operativa');
             actualizarSistema();
         }
     });
 
-    // Carga inicial al cargar el documento html
     actualizarSistema();
 </script>
 </body>
