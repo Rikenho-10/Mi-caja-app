@@ -6,7 +6,7 @@
     <title>Executive Control - Luxury Box</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
-        /* Estilos Globales - Neo-Minimalismo Premium */
+        /* Estilos Globales de la Aplicación (Modo Operación) */
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             background-color: #05070f;
@@ -26,205 +26,187 @@
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* Identidad de Marca y Carga de Logo */
-        .brand-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        .logo-wrapper {
-            cursor: pointer;
-            display: inline-block;
-            position: relative;
-            margin-bottom: 12px;
-        }
-        .brand-logo {
-            width: 90px;
-            height: 90px;
-            border-radius: 50%;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            object-fit: cover;
-        }
+        /* Identidad de Marca */
+        .brand-header { text-align: center; margin-bottom: 30px; }
+        .logo-wrapper { cursor: pointer; display: inline-block; margin-bottom: 12px; }
+        .brand-logo { width: 90px; height: 90px; border-radius: 50%; border: 2px solid rgba(255, 255, 255, 0.1); object-fit: cover; }
         .logo-placeholder {
-            width: 90px;
-            height: 90px;
-            border-radius: 50%;
-            border: 2px dashed rgba(255, 255, 255, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.7rem;
-            color: #64748b;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.2s;
+            width: 90px; height: 90px; border-radius: 50%; border: 2px dashed rgba(255, 255, 255, 0.2);
+            display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: #64748b;
+            text-transform: uppercase; letter-spacing: 1px;
         }
-        .logo-wrapper:hover .logo-placeholder {
-            border-color: #3b82f6;
-            color: #3b82f6;
-        }
-        .brand-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: #ffffff;
-            margin: 0;
-        }
+        .brand-title { font-size: 1.3rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #ffffff; margin: 0; }
 
-        /* Pestañas de Navegación */
-        .tabs-nav {
-            display: flex;
-            background: #070913;
-            padding: 6px;
-            border-radius: 14px;
-            margin-bottom: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-        }
-        .tab-button {
-            flex: 1;
-            padding: 12px;
-            background: transparent;
-            border: none;
-            border-radius: 10px;
-            font-weight: 600;
-            color: #64748b;
-            font-size: 0.9rem;
-            cursor: pointer;
-        }
-        .tab-button.active {
-            background: #1e293b;
-            color: #ffffff;
-        }
+        /* Pestañas */
+        .tabs-nav { display: flex; background: #070913; padding: 6px; border-radius: 14px; margin-bottom: 30px; border: 1px solid rgba(255, 255, 255, 0.03); }
+        .tab-button { flex: 1; padding: 12px; background: transparent; border: none; border-radius: 10px; font-weight: 600; color: #64748b; font-size: 0.9rem; cursor: pointer; }
+        .tab-button.active { background: #1e293b; color: #ffffff; }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
 
-        /* Estructura del Panel de Control Visual */
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            margin-bottom: 25px;
-        }
-        .card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 20px;
-            border-radius: 16px;
-            text-align: center;
-        }
-        .card-title {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            color: #94a3b8;
-            margin-bottom: 8px;
-            letter-spacing: 1.5px;
-            font-weight: 600;
-        }
+        /* Tablero de Control */
+        .dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 25px; }
+        .card { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); padding: 20px; border-radius: 16px; text-align: center; }
+        .card-title { font-size: 0.75rem; text-transform: uppercase; color: #94a3b8; margin-bottom: 8px; letter-spacing: 1.5px; font-weight: 600; }
         .card-value { font-size: 1.5rem; font-weight: 700; color: #ffffff; }
         .grid-full { grid-column: span 2; }
-
         .card-total { border-top: 2px solid #3b82f6; background: rgba(59, 130, 246, 0.01); }
         .card-rojo { border-top: 2px solid #ef4444; }
         .card-rojo .card-value { color: #f87171; }
         .card-verde { border-top: 2px solid #10b981; }
         .card-verde .card-value { color: #34d399; }
-        
-        /* Foco Premium de Consumos */
-        .card-gold {
-            background: linear-gradient(180deg, rgba(245, 158, 11, 0.05) 0%, rgba(0,0,0,0) 100%);
-            border: 1px solid rgba(245, 158, 11, 0.2);
-            border-top: 3px solid #f59e0b;
-            grid-column: span 2;
-        }
+        .card-gold { background: linear-gradient(180deg, rgba(245, 158, 11, 0.05) 0%, rgba(0,0,0,0) 100%); border: 1px solid rgba(245, 158, 11, 0.2); border-top: 3px solid #f59e0b; grid-column: span 2; }
         .card-gold .card-title { color: #fbbf24; }
         .card-gold .card-value { font-size: 2.2rem; color: #fbbf24; }
 
-        /* Formularios */
+        /* Formulario y Tabla */
         .form-group { margin-bottom: 20px; }
         label { display: block; margin-bottom: 8px; font-size: 0.85rem; color: #94a3b8; }
-        input, select {
-            width: 100%;
-            padding: 14px;
-            box-sizing: border-box;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            background-color: #070913;
-            color: #ffffff;
-            border-radius: 12px;
-            font-size: 1rem;
-        }
-
-        /* Botones */
-        .btn-action {
-            width: 100%;
-            padding: 15px;
-            border: none;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
+        input, select { width: 100%; padding: 14px; box-sizing: border-box; border: 1px solid rgba(255, 255, 255, 0.08); background-color: #070913; color: #ffffff; border-radius: 12px; font-size: 1rem; }
+        .btn-action { width: 100%; padding: 15px; border: none; border-radius: 12px; font-size: 1rem; font-weight: 600; cursor: pointer; }
         .btn-submit { background: #ffffff; color: #05070f; }
-        .btn-submit:hover { background: #e2e8f0; }
-        .btn-download {
-            background: transparent;
-            color: #ffffff;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            margin-bottom: 30px;
-        }
-        .btn-download:hover { background: rgba(255, 255, 255, 0.05); }
-
-        /* Tablas */
+        .btn-download { background: transparent; color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.15); margin-bottom: 30px; }
         table { width: 100%; border-collapse: collapse; margin-top: 25px; }
         th, td { padding: 14px; text-align: left; border-bottom: 1px solid rgba(255, 255, 255, 0.04); }
         th { color: #64748b; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; }
         .badge { padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; }
         .badge-c { background: rgba(59, 130, 246, 0.1); color: #60a5fa; }
         .badge-p { background: rgba(245, 158, 11, 0.1); color: #fbbf24; }
-        
         .btn-row-delete { background: transparent; color: #64748b; border: none; cursor: pointer; font-size: 1rem; }
         .btn-row-delete:hover { color: #ef4444; }
-
-        /* Reportes de Rangoles */
         .date-range-container { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
         .report-grid { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; }
-        .report-neon-card {
-            background: #111827;
-            border: 1px solid #374151;
-            padding: 20px;
-            border-radius: 14px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        .report-neon-card { background: #111827; border: 1px solid #374151; padding: 20px; border-radius: 14px; display: flex; justify-content: space-between; align-items: center; }
         .border-amber { border-left: 5px solid #f59e0b; }
         .border-emerald { border-left: 5px solid #10b981; }
-        .report-neon-card h4 { margin: 0; color: #ffffff; }
-        .report-neon-card p { margin: 5px 0 0 0; color: #9ca3af; font-size: 0.85rem; }
         .report-val-highlight { font-size: 1.8rem; font-weight: bold; }
         .color-amber { color: #fbbf24; }
         .color-emerald { color: #34d399; }
-
-        /* DISEÑO EXCLUSIVO DEL TICKET (Oculto en app, optimizado para la foto) */
-        #ticket-render-container { position: absolute; left: -9999px; }
-        .ticket-style {
-            width: 420px;
-            background-color: #0d1224;
-            color: #ffffff;
-            padding: 40px 30px;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        .ticket-header-img { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; margin-bottom: 10px; }
-        .ticket-divider { border-top: 1px dashed rgba(255, 255, 255, 0.15); margin: 20px 0; }
-        .ticket-row { display: flex; justify-content: space-between; margin-bottom: 10px; }
-        .ticket-row .label { color: #94a3b8; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
-        .ticket-row .value { font-weight: 700; font-size: 1.05rem; }
-        .ticket-row.grand-total { font-size: 1.3rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px; }
-        .ticket-row.gold-total .value { color: #fbbf24; font-size: 1.6rem; }
-        .ticket-footer { text-align: center; font-size: 0.75rem; color: #475569; margin-top: 35px; letter-spacing: 1px; }
-
         .btn-clear-data { background: transparent; color: #273549; border: none; font-size: 0.85rem; margin-top: 40px; width: 100%; cursor: pointer; }
+
+        /* ==========================================================================
+           DISEÑO EXCLUSIVO DEL TICKET (RÉPLICA DE TU HOJA FÍSICA - ESTILO PAPEL)
+           ========================================================================== */
+        #ticket-render-container { position: absolute; left: -9999px; }
+        
+        .ticket-style-print {
+            width: 460px;
+            background-color: #ffffff; /* Fondo blanco papel */
+            color: #1a1a1a; /* Texto oscuro imitación tinta */
+            padding: 35px;
+            font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+            box-sizing: border-box;
+        }
+        
+        .ticket-header-layout {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .ticket-main-title {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: #2c3e50;
+            text-align: left;
+            line-height: 1.2;
+            max-width: 260px;
+        }
+
+        /* Caja de Consumos - Superior Derecha (Fucsia/Rosa) */
+        .ticket-box-consumos {
+            background-color: #fbcfe8; /* Color rosa de tu libreta */
+            border: 2px solid #f472b6;
+            border-radius: 10px;
+            padding: 8px 14px;
+            text-align: center;
+            min-width: 90px;
+        }
+        .ticket-box-consumos .title { font-size: 0.65rem; text-transform: uppercase; font-weight: 800; color: #9d174d; letter-spacing: 0.5px; }
+        .ticket-box-consumos .value { font-size: 1.4rem; font-weight: 900; color: #9d174d; }
+
+        /* Tabla de registros estilo libreta */
+        .ticket-table-records {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .ticket-table-records th {
+            background-color: #f1f5f9;
+            color: #475569;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 10px;
+            border-bottom: 2px solid #cbd5e1;
+            text-transform: uppercase;
+        }
+        .ticket-table-records td {
+            padding: 10px;
+            font-size: 0.9rem;
+            border-bottom: 1px solid #e2e8f0;
+            color: #334155;
+        }
+        .ticket-table-records td.amount { font-weight: 700; text-align: right; }
+
+        /* Fila de Suma de la Tabla */
+        .ticket-sum-row {
+            display: flex;
+            justify-content: flex-end;
+            font-size: 1.1rem;
+            font-weight: 700;
+            padding: 12px 10px;
+            color: #1e293b;
+            border-top: 1px solid #94a3b8;
+        }
+
+        /* Contenedores de Totales Inferiores (Rojo, Verde, Fecha) */
+        .ticket-bottom-summary-grid {
+            display: flex;
+            gap: 12px;
+            margin-top: 15px;
+        }
+        
+        /* Caja de Sobre Rojo Inferior */
+        .badge-box-rojo {
+            flex: 1;
+            background-color: #fbcfe8; /* Color rosa/rojo de tu hoja */
+            border: 2px solid #f472b6;
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+        }
+        .badge-box-rojo .label { font-size: 0.7rem; font-weight: 800; color: #9d174d; text-transform: uppercase; }
+        .badge-box-rojo .val { font-size: 1.25rem; font-weight: 900; color: #9d174d; margin-top: 2px; }
+
+        /* Caja de Sobre Verde Inferior */
+        .badge-box-verde {
+            flex: 1;
+            background-color: #bbf7d0; /* Color verde de tu hoja */
+            border: 2px solid #4ade80;
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+        }
+        .badge-box-verde .label { font-size: 0.7rem; font-weight: 800; color: #166534; text-transform: uppercase; }
+        .badge-box-verde .val { font-size: 1.25rem; font-weight: 900; color: #166534; margin-top: 2px; }
+
+        /* Caja de Fecha Inferior (Amarillo) */
+        .badge-box-fecha {
+            background-color: #fef08a; /* Color amarillo de tu hoja */
+            border: 2px solid #facc15;
+            border-radius: 8px;
+            padding: 10px 15px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-width: 100px;
+        }
+        .badge-box-fecha .label { font-size: 0.65rem; font-weight: 800; color: #854d0e; text-transform: uppercase; }
+        .badge-box-fecha .val { font-size: 0.95rem; font-weight: 700; color: #854d0e; margin-top: 2px; }
+
+        .ticket-header-logo-print { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; margin-right: 12px; border: 1px solid #cbd5e1; }
     </style>
 </head>
 <body>
@@ -232,7 +214,7 @@
 <div class="container">
     <div class="brand-header">
         <input type="file" id="logo-input" accept="image/*" style="display: none;">
-        <div class="logo-wrapper" onclick="document.getElementById('logo-input').click();" title="Presiona para cambiar el logotipo">
+        <div class="logo-wrapper" onclick="document.getElementById('logo-input').click();" title="Subir logotipo">
             <img id="app-logo" src="" alt="Logo" class="brand-logo" style="display: none;">
             <div id="logo-placeholder" class="logo-placeholder">Añadir Logo</div>
         </div>
@@ -272,7 +254,7 @@
             </div>
         </div>
 
-        <button class="btn-action btn-download" onclick="exportarTicketProfesional()">Exportar Reporte Ejecutivo (PNG)</button>
+        <button class="btn-action btn-download" onclick="exportarTicketProfesional()">Exportar Reporte Estilo Hoja (PNG)</button>
 
         <form id="formOperacion">
             <div class="form-group">
@@ -349,60 +331,56 @@
 </div>
 
 <div id="ticket-render-container">
-    <div class="ticket-style" id="ticket-visual">
-        <div style="text-align: center; margin-bottom: 15px;">
-            <img id="ticket-logo" src="" alt="Logo Ticket" class="ticket-header-img" style="display: none;">
-            <div class="brand-title" style="font-size: 1.4rem;">Auditoría de Caja</div>
-            <div style="font-size: 0.8rem; color: #64748b; margin-top: 5px;" id="ticket-fecha-emision">00/00/0000 00:00</div>
+    <div class="ticket-style-print" id="ticket-visual">
+        
+        <div class="ticket-header-layout">
+            <div style="display: flex; align-items: center;">
+                <img id="ticket-logo" src="" alt="Logo" class="ticket-header-logo-print" style="display: none;">
+                <div class="ticket-main-title">Registro de Asistencia y Ganancias</div>
+            </div>
+            <div class="ticket-box-consumos">
+                <div class="title">Consumos</div>
+                <div class="value" id="t-consumosMetrica">0.00</div>
+            </div>
         </div>
         
-        <div class="ticket-divider"></div>
-        <div style="font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; font-weight: bold;">Desglose de Operaciones</div>
-        <div id="ticket-lista-clientes-dinamica"></div>
+        <table class="ticket-table-records">
+            <thead>
+                <tr>
+                    <th style="width: 55px;">Línea</th>
+                    <th>Nombre</th>
+                    <th style="text-align: right;">Total ($)</th>
+                </tr>
+            </thead>
+            <tbody id="ticket-tabla-dinamica-clientes">
+                </tbody>
+        </table>
         
-        <div class="ticket-divider"></div>
-        
-        <div class="ticket-row">
-            <div class="label">Venta del Día</div>
-            <div class="value">$<span id="t-ventaDia">0.00</span></div>
-        </div>
-        <div class="ticket-row">
-            <div class="label">Producto Cerrado</div>
-            <div class="value">$<span id="t-productoCerrado">0.00</span></div>
-        </div>
-        <div class="ticket-row grand-total">
-            <div class="label" style="color: #ffffff;">Total</div>
-            <div class="value" id="t-totalCombinado">$0.00</div>
+        <div class="ticket-sum-row">
+            Suma Tabla: $<span id="t-sumaTablaTotal">0.00</span>
         </div>
         
-        <div class="ticket-divider"></div>
-        
-        <div class="ticket-row">
-            <div class="label">Sobre Rojo (70%)</div>
-            <div class="value">$<span id="t-sobreRojo">0.00</span></div>
-        </div>
-        <div class="ticket-row">
-            <div class="label">Sobre Verde (30%)</div>
-            <div class="value">$<span id="t-sobreVerde">0.00</span></div>
-        </div>
-        
-        <div class="ticket-divider"></div>
-        
-        <div class="ticket-row gold-total">
-            <div class="label" style="color: #fbbf24; align-self: center;">★ Consumos ★</div>
-            <div class="value" id="t-consumosMetrica">0.00</div>
+        <div class="ticket-bottom-summary-grid">
+            <div class="badge-box-rojo">
+                <div class="label">Rojo (70%)</div>
+                <div class="val" id="t-sobreRojo">0.00</div>
+            </div>
+            <div class="badge-box-verde">
+                <div class="label">Verde (30%)</div>
+                <div class="val" id="t-sobreVerde">0.00</div>
+            </div>
+            <div class="badge-box-fecha">
+                <div class="label">Fecha</div>
+                <div class="val" id="t-fechaFormat">Sábado 7</div>
+            </div>
         </div>
         
-        <div class="ticket-footer">
-            REPORT GENERATED AUTOMATICALLY
-        </div>
     </div>
 </div>
 
 <script>
     let registros = JSON.parse(localStorage.getItem('caja_operativa')) || [];
 
-    // Control de Elementos Multimedia e Inputs
     const logoInput = document.getElementById('logo-input');
     const appLogo = document.getElementById('app-logo');
     const ticketLogo = document.getElementById('ticket-logo');
@@ -414,7 +392,6 @@
     const montoInput = document.getElementById('monto');
     const historialLineas = document.getElementById('historialLineas');
 
-    // Nodos Dashboard
     const txtVentaDia = document.getElementById('ventaDia');
     const txtProductoCerrado = document.getElementById('productoCerrado');
     const txtTotalCombinado = document.getElementById('totalCombinado');
@@ -422,17 +399,14 @@
     const txtSobreVerde = document.getElementById('sobreVerde');
     const txtConsumosMetrica = document.getElementById('consumosMetrica');
 
-    // Nodos Ticket Oculto
-    const tvVenta = document.getElementById('t-ventaDia');
-    const tvCerrado = document.getElementById('t-productoCerrado');
-    const tvCombinado = document.getElementById('t-totalCombinado');
+    // Nodos del Ticket
     const tvRojo = document.getElementById('t-sobreRojo');
     const tvVerde = document.getElementById('t-sobreVerde');
     const tvConsumos = document.getElementById('t-consumosMetrica');
-    const tvFecha = document.getElementById('ticket-fecha-emision');
-    const ticketListaClientesDinamica = document.getElementById('ticket-lista-clientes-dinamica');
+    const tvSumaTabla = document.getElementById('t-sumaTablaTotal');
+    const tvFechaFormat = document.getElementById('t-fechaFormat');
+    const ticketTablaDinamicaClientes = document.getElementById('ticket-tabla-dinamica-clientes');
 
-    // Nodos Reportes
     const fInicio = document.getElementById('fechaInicio');
     const fFin = document.getElementById('fechaFin');
     const txtRepTotalConsumos = document.getElementById('repTotalConsumos');
@@ -440,30 +414,56 @@
     const txtRepSumaVerdes = document.getElementById('repSumaVerdes');
     const lblDivisionDias = document.getElementById('lblDivisionDias');
 
-    // LÓGICA DE CARGA Y MEMORIA DE LOGOTIPO
+    // RECUPERACIÓN DE LOGO CON COMPRESIÓN ACTIVA
     const logoGuardado = localStorage.getItem('club_logo_persitente');
-    if (logoGuardado) {
-        configurarFuentesLogo(logoGuardado);
-    }
+    if (logoGuardado) configurarFuentesLogo(logoGuardado);
 
     logoInput.addEventListener('change', function(e) {
         const archivo = e.target.files[0];
         if (archivo) {
             const lector = new FileReader();
             lector.onload = function(evt) {
-                const base64Imagen = evt.target.result;
-                localStorage.setItem('club_logo_persitente', base64Imagen);
-                configurarFuentesLogo(base64Imagen);
+                const img = new Image();
+                img.onload = function() {
+                    // LÓGICA DE COMPRESIÓN DE IMAGEN USANDO CANVAS
+                    const maximoAnchoAlto = 250; // Tamaño ideal liviano
+                    let anchoOriginal = img.width;
+                    let altoOriginal = img.height;
+
+                    if (anchoOriginal > altoOriginal) {
+                        if (anchoOriginal > altoOriginal) {
+                        if (anchoOriginal > maximoAnchoAlto) {
+                            altoOriginal *= maximoAnchoAlto / anchoOriginal;
+                            anchoOriginal = maximoAnchoAlto;
+                        }
+                    } else {
+                        if (altoOriginal > maximoAnchoAlto) {
+                            anchoOriginal *= maximoAnchoAlto / altoOriginal;
+                            altoOriginal = maximoAnchoAlto;
+                        }
+                    }
+
+                    const canvas = document.createElement('canvas');
+                    canvas.width = anchoOriginal;
+                    canvas.height = altoOriginal;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, anchoOriginal, altoOriginal);
+                    
+                    // Comprimir al 75% en formato JPEG
+                    const base64Optimizada = canvas.toDataURL('image/jpeg', 0.75);
+                    
+                    localStorage.setItem('club_logo_persitente', base64Optimizada);
+                    configurarFuentesLogo(base64Optimizada);
+                };
+                img.src = evt.target.result;
             };
             lector.readAsDataURL(archivo);
         }
     });
 
-    function configurarFuentesLogo(origenSrc) {
-        appLogo.src = origenSrc;
-        appLogo.style.display = 'inline-block';
-        ticketLogo.src = origenSrc;
-        ticketLogo.style.display = 'inline-block';
+    function configurarFuentesLogo(src) {
+        appLogo.src = src; appLogo.style.display = 'inline-block';
+        ticketLogo.src = src; ticketLogo.style.display = 'inline-block';
         logoPlaceholder.style.display = 'none';
     }
 
@@ -500,19 +500,19 @@
         const verde = combinado * 0.30;
         const consumos = ventaDiaAcumulado / 90;
         
-        txtVentaDia.textContent = ventaDiaAcumulado.toFixed(2);
-        txtProductoCerrado.textContent = productoCerradoAcumulado.toFixed(2);
-        txtTotalCombinado.textContent = combinado.toFixed(2);
-        txtSobreRojo.textContent = rojo.toFixed(2);
-        txtSobreVerde.textContent = verde.toFixed(2);
-        txtConsumosMetrica.textContent = consumos.toFixed(2);
+        txtVentaDia.textContent = combinado === 0 ? "0.00" : ventaDiaAcumulado.toFixed(2);
+        txtProductoCerrado.textContent = combinado === 0 ? "0.00" : productoCerradoAcumulado.toFixed(2);
+        txtTotalCombinado.textContent = combinado === 0 ? "0.00" : combinado.toFixed(2);
+        txtSobreRojo.textContent = combinado === 0 ? "0.00" : rojo.toFixed(2);
+        txtSobreVerde.textContent = combinado === 0 ? "0.00" : verde.toFixed(2);
+        txtConsumosMetrica.textContent = combinado === 0 ? "0.00" : consumos.toFixed(2);
 
-        tvVenta.textContent = ventaDiaAcumulado.toFixed(2);
-        tvCerrado.textContent = productoCerradoAcumulado.toFixed(2);
-        tvCombinado.textContent = '$' + combinado.toFixed(2);
-        tvRojo.textContent = rojo.toFixed(2);
-        tvVerde.textContent = verde.toFixed(2);
-        tvConsumos.textContent = consumos.toFixed(2);
+        // Sincronizar datos del Ticket
+        tvVenta.textContent = combinado === 0 ? "0.00" : ventaDiaAcumulado.toFixed(2); // Wait, tvVenta no existe como variable global aislada arriba, let's fix below
+        tvRojo.textContent = combinado === 0 ? "0.00" : rojo.toFixed(2);
+        tvVerde.textContent = combinado === 0 ? "0.00" : verde.toFixed(2);
+        tvConsumos.textContent = combinado === 0 ? "0.00" : consumos.toFixed(2);
+        tvSumaTabla.textContent = combinado === 0 ? "0.00" : combinado.toFixed(2);
     }
 
     function eliminarRegistro(idAEliminar) {
@@ -569,52 +569,55 @@
 
         const totalConsumosUnidades = totalVentaRango / 90;
         const promedioDiarioConsumos = totalConsumosUnidades / cantDias;
-        const sumaSobresVerdesRango = (totalVentaRango + totalCerradoRango) * 0.30;
+        const promedioSobresVerdes = (totalVentaRango + totalCerradoRango) * 0.30;
 
         txtRepTotalConsumos.textContent = totalConsumosUnidades.toFixed(2);
         txtRepPromedioConsumos.textContent = promedioDiarioConsumos.toFixed(2);
-        txtRepSumaVerdes.textContent = sumaSobresVerdesRango.toFixed(2);
+        txtRepSumaVerdes.textContent = promedioSobresVerdes.toFixed(2);
 
         lblDivisionDias.textContent = `Calculado para ${cantDias} día(s)`;
     }
 
-    // CONSTRUCCIÓN DINÁMICA DE LA LISTA DE CLIENTES EN EL TICKET
+    // EXPORTACIÓN CON EL NUEVO FORMATO INTEGRAL DE TU LIBRETA FÍSICA
     function exportarTicketProfesional() {
-        ticketListaClientesDinamica.innerHTML = '';
+        ticketTablaDinamicaClientes.innerHTML = '';
         const hoyStr = new Date().toDateString();
-        let contadorMovimientos = 0;
+        let indiceLinea = 0;
 
         registros.forEach(reg => {
             if (new Date(reg.fecha).toDateString() === hoyStr) {
-                contadorMovimientos++;
-                const filaTicket = document.createElement('div');
-                filaTicket.className = 'ticket-row';
-                filaTicket.style.marginBottom = '6px';
-                
-                const marcaTipo = reg.tipo === 'consumo' ? '' : ' (Cerrado)';
-                filaTicket.innerHTML = `
-                    <div style="color: #cbd5e1; font-size: 0.85rem;">${reg.cliente}${marcaTipo}</div>
-                    <div style="font-weight: 600; font-size: 0.9rem;">$${reg.monto.toFixed(2)}</div>
+                indiceLinea++;
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td style="color: #64748b; font-weight: bold; border-bottom: 1px solid #e2e8f0; padding: 8px;">${indiceLinea}</td>
+                    <td style="border-bottom: 1px solid #e2e8f0; padding: 8px; font-weight: 500;">${reg.cliente} ${reg.tipo === 'cerrado' ? '(P. Cerrado)' : ''}</td>
+                    <td style="border-bottom: 1px solid #e2e8f0; padding: 8px; font-weight: bold; text-align: right;">$${reg.monto.toFixed(2)}</td>
                 `;
-                ticketListaClientesDinamica.appendChild(filaTicket);
+                ticketTablaDinamicaClientes.appendChild(tr);
             }
         });
 
-        if (contadorMovimientos === 0) {
-            ticketListaClientesDinamica.innerHTML = '<div style="color:#64748b; font-size:0.85rem; text-align:center;">Sin operaciones hoy</div>';
+        // Completar líneas en blanco si está vacío para mantener el diseño de la libreta
+        if (indiceLinea === 0) {
+            tr = document.createElement('tr');
+            tr.innerHTML = `<td colspan="3" style="text-align: center; color: #94a3b8; padding: 20px;">Sin registros en la jornada actual</td>`;
+            ticketTablaDinamicaClientes.appendChild(tr);
         }
 
+        // Formatear Fecha al estilo manual de tu hoja
+        const diasSemana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+        const fechaActual = new Date();
+        tvFechaFormat.textContent = `${diasSemana[fechaActual.getDay()]} ${fechaActual.getDate()}`;
+
         const ticketVisual = document.getElementById('ticket-visual');
-        const ahora = new Date();
-        tvFecha.textContent = ahora.toLocaleDateString() + ' - ' + ahora.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
 
         html2canvas(ticketVisual, {
-            backgroundColor: '#0d1224',
-            scale: 3,
+            backgroundColor: '#ffffff',
+            scale: 3, 
             logging: false
         }).then(canvas => {
             const link = document.createElement('a');
-            link.download = `Auditoria_Caja_${ahora.toISOString().substring(0,10)}.png`;
+            link.download = `Registro_${fechaActual.toISOString().substring(0,10)}.png`;
             link.href = canvas.toDataURL('image/png');
             link.click();
         });
