@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Executive Control - Cyber Lounge Edition</title>
+    <title>Executive Control - Ultra-HD Edition</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         /* Estilos Globales de la Aplicación - Cyber VIP Lounge */
@@ -60,7 +60,7 @@
         .card-gold .card-title { color: #fbbf24; font-weight: 700; }
         .card-gold .card-value { font-size: 2.4rem; color: #fbbf24; text-shadow: 0 0 10px rgba(245, 158, 11, 0.3); }
 
-        /* Formularios y Control de Entradas */
+        /* Formularios */
         .form-group { margin-bottom: 20px; }
         label { display: block; margin-bottom: 8px; font-size: 0.85rem; color: #64748b; }
         input, select { width: 100%; padding: 14px; box-sizing: border-box; border: 1px solid rgba(255, 255, 255, 0.06); background-color: #03050b; color: #ffffff; border-radius: 12px; font-size: 1rem; }
@@ -90,9 +90,7 @@
         .color-emerald { color: #34d399; }
         .btn-clear-data { background: transparent; color: #1e293b; border: none; font-size: 0.85rem; margin-top: 40px; width: 100%; cursor: pointer; }
 
-        /* ==========================================================================
-           CORRECCIÓN SOLICITADA: OCULTAR EL TICKET COMPLETAMENTE DE LA VISTA DEL MÓVIL
-           ========================================================================== */
+        /* Contenedor Fijo Oculto Blindado */
         #ticket-render-container { 
             position: fixed; 
             top: 0; 
@@ -101,14 +99,17 @@
             z-index: -9999;
         }
         
+        /* ==========================================================================
+           TICKET DE ALTA DEFINICIÓN (FUENTES MÁS GRUESAS CONTRA LA COMPRESIÓN)
+           ========================================================================== */
         .ticket-style-print {
-            width: 460px;
-            background-color: #070913; 
+            width: 480px;
+            background-color: #060914; 
             color: #ffffff; 
-            padding: 35px;
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif; 
+            padding: 40px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
             box-sizing: border-box; 
-            border: 1px solid rgba(255,255,255,0.08);
+            border: 2px solid rgba(255,255,255,0.1);
         }
     </style>
 </head>
@@ -238,55 +239,57 @@
         
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
             <div style="display: flex; align-items: center;">
-                <img id="ticket-logo" src="" alt="Logo" style="width: 45px; height: 45px; border-radius: 50%; object-fit: cover; margin-right: 12px; border: 1px solid rgba(255,255,255,0.1); display: none;">
-                <div style="font-size: 1.25rem; font-weight: 800; color: #ffffff; text-transform: uppercase; letter-spacing: 1.5px; line-height: 1.2; max-width: 260px;">Registro de Asistencia y Ganancias</div>
+                <img id="ticket-logo" src="" alt="Logo" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover; margin-right: 14px; border: 2px solid #3b82f6; display: none;">
+                <div style="font-size: 1.3rem; font-weight: 900; color: #ffffff; text-transform: uppercase; letter-spacing: 1px; line-height: 1.2; max-width: 260px;">Registro de Asistencia y Ganancias</div>
             </div>
-            <div style="background: linear-gradient(180deg, rgba(245, 158, 11, 0.15) 0%, rgba(0,0,0,0) 100%); border: 1px solid #f59e0b; border-radius: 10px; padding: 8px 14px; text-align: center; min-width: 90px; box-shadow: 0 0 10px rgba(245,158,11,0.2);">
-                <div style="font-size: 0.65rem; text-transform: uppercase; font-weight: 800; color: #fbbf24; letter-spacing: 0.5px;">Consumos</div>
-                <div style="font-size: 1.5rem; font-weight: 900; color: #fbbf24;" id="t-consumosMetrica">0.00</div>
+            <div style="background: rgba(245, 158, 11, 0.15); border: 2px solid #f59e0b; border-radius: 12px; padding: 10px 16px; text-align: center; min-width: 95px;">
+                <div style="font-size: 0.7rem; text-transform: uppercase; font-weight: 900; color: #fbbf24; letter-spacing: 0.5px;">Consumos</div>
+                <div style="font-size: 1.6rem; font-weight: 900; color: #fbbf24;" id="t-consumosMetrica">0.00</div>
             </div>
         </div>
         
-        <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+        <table style="width: 100%; border-collapse: collapse; margin: 25px 0;">
             <thead>
                 <tr>
-                    <th style="color: #4b5563; font-weight: 700; font-size: 0.75rem; padding: 10px; border-bottom: 2px solid rgba(255,255,255,0.1); text-transform: uppercase; text-align: left; width: 55px;">Línea</th>
-                    <th style="color: #4b5563; font-weight: 700; font-size: 0.75rem; padding: 10px; border-bottom: 2px solid rgba(255,255,255,0.1); text-transform: uppercase; text-align: left;">Nombre / Concepto</th>
-                    <th style="color: #4b5563; font-weight: 700; font-size: 0.75rem; padding: 10px; border-bottom: 2px solid rgba(255,255,255,0.1); text-transform: uppercase; text-align: right;">Total ($)</th>
+                    <th style="color: #64748b; font-weight: 800; font-size: 0.8rem; padding: 12px 10px; border-bottom: 3px solid rgba(255,255,255,0.15); text-transform: uppercase; text-align: left; width: 55px;">Línea</th>
+                    <th style="color: #64748b; font-weight: 800; font-size: 0.8rem; padding: 12px 10px; border-bottom: 3px solid rgba(255,255,255,0.15); text-transform: uppercase; text-align: left;">Nombre / Concepto</th>
+                    <th style="color: #64748b; font-weight: 800; font-size: 0.8rem; padding: 12px 10px; border-bottom: 3px solid rgba(255,255,255,0.15); text-transform: uppercase; text-align: right;">Total ($)</th>
                 </tr>
             </thead>
-            <tbody id="ticket-tabla-dinamica-clientes" style="color: #cbd5e1;"></tbody>
+            <tbody id="ticket-tabla-dinamica-clientes" style="color: #ffffff; font-weight: 700;"></tbody>
         </table>
         
-        <div style="display: flex; justify-content: flex-end; font-size: 1.1rem; font-weight: 700; padding: 12px 10px; color: #ffffff; border-top: 1px dashed rgba(255,255,255,0.15);">
+        <div style="display: flex; justify-content: flex-end; font-size: 1.2rem; font-weight: 900; padding: 14px 10px; color: #ffffff; border-top: 2px dashed rgba(255,255,255,0.2);">
             Suma Tabla: $<span id="t-sumaTablaTotal">0.00</span>
         </div>
 
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0 25px 0;">
-            <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-left: 3px solid #3b82f6; padding: 10px; border-radius: 8px;">
-                <div style="font-size: 0.65rem; color: #94a3b8; text-transform: uppercase; font-weight: bold;">Venta del Día</div>
-                <div style="font-size: 1.1rem; font-weight: bold; color: #ffffff; margin-top: 2px;">$<span id="t-ventaDia">0.00</span></div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0 25px 0;">
+            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-left: 4px solid #3b82f6; padding: 12px; border-radius: 10px;">
+                <div style="font-size: 0.7rem; color: #94a3b8; text-transform: uppercase; font-weight: 800; letter-spacing: 0.5px;">Venta del Día</div>
+                <div style="font-size: 1.2rem; font-weight: 900; color: #ffffff; margin-top: 2px;">$<span id="t-ventaDia">0.00</span></div>
             </div>
-            <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-left: 3px solid #f59e0b; padding: 10px; border-radius: 8px;">
-                <div style="font-size: 0.65rem; color: #94a3b8; text-transform: uppercase; font-weight: bold;">Producto Cerrado</div>
-                <div style="font-size: 1.1rem; font-weight: bold; color: #ffffff; margin-top: 2px;">$<span id="t-productoCerrado">0.00</span></div>
+            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-left: 4px solid #f59e0b; padding: 12px; border-radius: 10px;">
+                <div style="font-size: 0.7rem; color: #94a3b8; text-transform: uppercase; font-weight: 800; letter-spacing: 0.5px;">Producto Cerrado</div>
+                <div style="font-size: 1.2rem; font-weight: 900; color: #ffffff; margin-top: 2px;">$<span id="t-productoCerrado">0.00</span></div>
             </div>
         </div>
         
-        <div style="display: flex; gap: 12px; margin-top: 15px;">
-            <div style="flex: 1; background-color: rgba(239, 68, 68, 0.1); border: 2px solid #f472b6; border-radius: 8px; padding: 10px; text-align: center;">
-                <div style="font-size: 0.7rem; font-weight: 800; color: #f472b6; text-transform: uppercase;">Rojo (70%)</div>
-                <div style="font-size: 1.25rem; font-weight: 900; color: #ffffff; margin-top: 2px;">$<span id="t-sobreRojo">0.00</span></div>
+        <div style="display: flex; gap: 14px; margin-top: 20px;">
+            <div style="flex: 1; background-color: rgba(239, 68, 68, 0.15); border: 2px solid #f472b6; border-radius: 10px; padding: 12px; text-align: center;">
+                <div style="font-size: 0.75rem; font-weight: 900; color: #f472b6; text-transform: uppercase; letter-spacing: 0.5px;">Rojo (70%)</div>
+                <div style="font-size: 1.35rem; font-weight: 900; color: #ffffff; margin-top: 2px;">$<span id="t-sobreRojo">0.00</span></div>
             </div>
-            <div style="flex: 1; background-color: rgba(16, 185, 129, 0.1); border: 2px solid #4ade80; border-radius: 8px; padding: 10px; text-align: center;">
-                <div style="font-size: 0.7rem; font-weight: 800; color: #4ade80; text-transform: uppercase;">Verde (30%)</div>
-                <div style="font-size: 1.25rem; font-weight: 900; color: #ffffff; margin-top: 2px;">$<span id="t-sobreVerde">0.00</span></div>
+            <div style="flex: 1; background-color: rgba(16, 185, 129, 0.15); border: 2px solid #4ade80; border-radius: 10px; padding: 12px; text-align: center;">
+                <div style="font-size: 0.75rem; font-weight: 900; color: #4ade80; text-transform: uppercase; letter-spacing: 0.5px;">Verde (30%)</div>
+                <div style="font-size: 1.35rem; font-weight: 900; color: #ffffff; margin-top: 2px;">$<span id="t-sobreVerde">0.00</span></div>
             </div>
-            <div style="background-color: rgba(250, 204, 21, 0.1); border: 2px solid #facc15; border-radius: 8px; padding: 10px 15px; text-align: center; display: flex; flex-direction: column; justify-content: center; min-width: 100px;">
-                <div style="font-size: 0.65rem; font-weight: 800; color: #facc15; text-transform: uppercase;">Fecha</div>
-                <div style="font-size: 1rem; font-weight: 700; color: #ffffff; margin-top: 2px;" id="t-fechaFormat">00</div>
+            <div style="background-color: rgba(250, 204, 21, 0.15); border: 2px solid #facc15; border-radius: 10px; padding: 12px 16px; text-align: center; display: flex; flex-direction: column; justify-content: center; min-width: 105px;">
+                <div style="font-size: 0.7rem; font-weight: 900; color: #facc15; text-transform: uppercase; letter-spacing: 0.5px;">Fecha</div>
+                <div style="font-size: 1.1rem; font-weight: 900; color: #ffffff; margin-top: 2px;" id="t-fechaFormat">00</div>
             </div>
         </div>
+        
+        <div style="text-align: center; font-size: 0.75rem; color: #4b5563; font-weight: 700; margin-top: 40px; letter-spacing: 2px;">AUDITORÍA DE CAJA INTERNA PRIVADA</div>
     </div>
 </div>
 
@@ -492,6 +495,7 @@
         lblDivisionDias.textContent = `Calculado para ${cantDias} día(s)`;
     }
 
+    // EXPORTACIÓN MEJORADA CON ESCALA EN ULTRA ALTA DEFINICIÓN (scale: 4)
     function exportarTicketProfesional() {
         ticketTablaDinamicaClientes.innerHTML = '';
         const hoyStr = new Date().toDateString();
@@ -504,9 +508,9 @@
                 const marcaTipo = reg.tipo === 'cerrado' ? ' (P. Cerrado)' : '';
                 
                 trTicket.innerHTML = `
-                    <td style="color: #4b5563; font-weight: bold; border-bottom: 1px solid rgba(255,255,255,0.05); padding: 10px; font-size: 0.9rem;">${String(indiceLinea).padStart(2, '0')}</td>
-                    <td style="border-bottom: 1px solid rgba(255,255,255,0.05); padding: 10px; font-weight: 500; color: #cbd5e1; font-size: 0.9rem;">${reg.cliente}${marcaTipo}</td>
-                    <td style="border-bottom: 1px solid rgba(255,255,255,0.05); padding: 10px; font-weight: bold; color: #ffffff; text-align: right; font-size: 0.9rem;">$${reg.monto.toFixed(2)}</td>
+                    <td style="color: #64748b; font-weight: 800; border-bottom: 1px solid rgba(255,255,255,0.08); padding: 12px 10px; font-size: 0.95rem;">${String(indiceLinea).padStart(2, '0')}</td>
+                    <td style="border-bottom: 1px solid rgba(255,255,255,0.08); padding: 12px 10px; font-weight: 700; color: #ffffff; font-size: 0.95rem;">${reg.cliente}${marcaTipo}</td>
+                    <td style="border-bottom: 1px solid rgba(255,255,255,0.08); padding: 12px 10px; font-weight: 900; color: #ffffff; text-align: right; font-size: 0.95rem;">$${reg.monto.toFixed(2)}</td>
                 `;
                 ticketTablaDinamicaClientes.appendChild(trTicket);
             }
@@ -514,7 +518,7 @@
 
         if (indiceLinea === 0) {
             const trVacio = document.createElement('tr');
-            trVacio.innerHTML = `<td colspan="3" style="text-align: center; color: #4b5563; padding: 20px; font-style: italic; font-size: 0.85rem;">Sin transacciones hoy</td>`;
+            trVacio.innerHTML = `<td colspan="3" style="text-align: center; color: #64748b; padding: 25px; font-style: italic; font-size: 0.9rem;">Sin transacciones hoy</td>`;
             ticketTablaDinamicaClientes.appendChild(trVacio);
         }
 
@@ -524,9 +528,10 @@
 
         const ticketVisual = document.getElementById('ticket-visual');
 
+        // MULTIPLICACIÓN POR 4 DE LA RESOLUCIÓN PARA INTEGRACIÓN ULTRA-HD
         html2canvas(ticketVisual, {
             backgroundColor: '#070913',
-            scale: 3, 
+            scale: 4, 
             logging: false
         }).then(canvas => {
             const link = document.createElement('a');
