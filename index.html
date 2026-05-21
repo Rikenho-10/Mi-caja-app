@@ -91,8 +91,8 @@
         
         .ticket-style-print {
             width: 460px;
-            background-color: #ffffff; /* Fondo blanco papel */
-            color: #1a1a1a; /* Texto oscuro imitación tinta */
+            background-color: #ffffff; 
+            color: #1a1a1a; 
             padding: 35px;
             font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
             box-sizing: border-box;
@@ -114,9 +114,8 @@
             max-width: 260px;
         }
 
-        /* Caja de Consumos - Superior Derecha (Fucsia/Rosa) */
         .ticket-box-consumos {
-            background-color: #fbcfe8; /* Color rosa de tu libreta */
+            background-color: #fbcfe8; 
             border: 2px solid #f472b6;
             border-radius: 10px;
             padding: 8px 14px;
@@ -126,7 +125,6 @@
         .ticket-box-consumos .title { font-size: 0.65rem; text-transform: uppercase; font-weight: 800; color: #9d174d; letter-spacing: 0.5px; }
         .ticket-box-consumos .value { font-size: 1.4rem; font-weight: 900; color: #9d174d; }
 
-        /* Tabla de registros estilo libreta */
         .ticket-table-records {
             width: 100%;
             border-collapse: collapse;
@@ -147,9 +145,7 @@
             border-bottom: 1px solid #e2e8f0;
             color: #334155;
         }
-        .ticket-table-records td.amount { font-weight: 700; text-align: right; }
 
-        /* Fila de Suma de la Tabla */
         .ticket-sum-row {
             display: flex;
             justify-content: flex-end;
@@ -160,17 +156,15 @@
             border-top: 1px solid #94a3b8;
         }
 
-        /* Contenedores de Totales Inferiores (Rojo, Verde, Fecha) */
         .ticket-bottom-summary-grid {
             display: flex;
             gap: 12px;
             margin-top: 15px;
         }
         
-        /* Caja de Sobre Rojo Inferior */
         .badge-box-rojo {
             flex: 1;
-            background-color: #fbcfe8; /* Color rosa/rojo de tu hoja */
+            background-color: #fbcfe8; 
             border: 2px solid #f472b6;
             border-radius: 8px;
             padding: 10px;
@@ -179,10 +173,9 @@
         .badge-box-rojo .label { font-size: 0.7rem; font-weight: 800; color: #9d174d; text-transform: uppercase; }
         .badge-box-rojo .val { font-size: 1.25rem; font-weight: 900; color: #9d174d; margin-top: 2px; }
 
-        /* Caja de Sobre Verde Inferior */
         .badge-box-verde {
             flex: 1;
-            background-color: #bbf7d0; /* Color verde de tu hoja */
+            background-color: #bbf7d0; 
             border: 2px solid #4ade80;
             border-radius: 8px;
             padding: 10px;
@@ -191,9 +184,8 @@
         .badge-box-verde .label { font-size: 0.7rem; font-weight: 800; color: #166534; text-transform: uppercase; }
         .badge-box-verde .val { font-size: 1.25rem; font-weight: 900; color: #166534; margin-top: 2px; }
 
-        /* Caja de Fecha Inferior (Amarillo) */
         .badge-box-fecha {
-            background-color: #fef08a; /* Color amarillo de tu hoja */
+            background-color: #fef08a; 
             border: 2px solid #facc15;
             border-radius: 8px;
             padding: 10px 15px;
@@ -222,8 +214,8 @@
     </div>
 
     <div class="tabs-nav">
-        <button class="tab-button active" onclick="cambiarPestaña('registro')">Caja Diaria</button>
-        <button class="tab-button" onclick="cambiarPestaña('reportes')">Auditoría</button>
+        <button class="tab-button active" onclick="cambiarPestaña('registro', this)">Caja Diaria</button>
+        <button class="tab-button" onclick="cambiarPestaña('reportes', this)">Auditoría</button>
     </div>
     
     <div id="tab-registro" class="tab-content active">
@@ -347,13 +339,12 @@
         <table class="ticket-table-records">
             <thead>
                 <tr>
-                    <th style="width: 55px;">Línea</th>
-                    <th>Nombre</th>
+                    <th style="width: 55px; text-align: left;">Línea</th>
+                    <th style="text-align: left;">Nombre</th>
                     <th style="text-align: right;">Total ($)</th>
                 </tr>
             </thead>
-            <tbody id="ticket-tabla-dinamica-clientes">
-                </tbody>
+            <tbody id="ticket-tabla-dinamica-clientes"></tbody>
         </table>
         
         <div class="ticket-sum-row">
@@ -371,16 +362,16 @@
             </div>
             <div class="badge-box-fecha">
                 <div class="label">Fecha</div>
-                <div class="val" id="t-fechaFormat">Sábado 7</div>
+                <div class="val" id="t-fechaFormat">00</div>
             </div>
         </div>
-        
     </div>
 </div>
 
 <script>
     let registros = JSON.parse(localStorage.getItem('caja_operativa')) || [];
 
+    // Nodos Principales de la Cabecera e Inputs
     const logoInput = document.getElementById('logo-input');
     const appLogo = document.getElementById('app-logo');
     const ticketLogo = document.getElementById('ticket-logo');
@@ -392,6 +383,7 @@
     const montoInput = document.getElementById('monto');
     const historialLineas = document.getElementById('historialLineas');
 
+    // Nodos del Dashboard Principal
     const txtVentaDia = document.getElementById('ventaDia');
     const txtProductoCerrado = document.getElementById('productoCerrado');
     const txtTotalCombinado = document.getElementById('totalCombinado');
@@ -399,7 +391,10 @@
     const txtSobreVerde = document.getElementById('sobreVerde');
     const txtConsumosMetrica = document.getElementById('consumosMetrica');
 
-    // Nodos del Ticket
+    // Nodos Declarados del Ticket Oculto (Corrección del error previo)
+    const tvVenta = document.getElementById('t-ventaDia');
+    const tvCerrado = document.getElementById('t-productoCerrado');
+    const tvCombinado = document.getElementById('t-totalCombinado');
     const tvRojo = document.getElementById('t-sobreRojo');
     const tvVerde = document.getElementById('t-sobreVerde');
     const tvConsumos = document.getElementById('t-consumosMetrica');
@@ -407,6 +402,7 @@
     const tvFechaFormat = document.getElementById('t-fechaFormat');
     const ticketTablaDinamicaClientes = document.getElementById('ticket-tabla-dinamica-clientes');
 
+    // Nodos de la Pestaña de Reportes
     const fInicio = document.getElementById('fechaInicio');
     const fFin = document.getElementById('fechaFin');
     const txtRepTotalConsumos = document.getElementById('repTotalConsumos');
@@ -414,10 +410,11 @@
     const txtRepSumaVerdes = document.getElementById('repSumaVerdes');
     const lblDivisionDias = document.getElementById('lblDivisionDias');
 
-    // RECUPERACIÓN DE LOGO CON COMPRESIÓN ACTIVA
+    // RECUPERACIÓN E INYECTADO DE LOGO GUARDADO
     const logoGuardado = localStorage.getItem('club_logo_persitente');
     if (logoGuardado) configurarFuentesLogo(logoGuardado);
 
+    // SISTEMA AVANZADO DE CARGA Y COMPRESIÓN DEL LOGOTIPO
     logoInput.addEventListener('change', function(e) {
         const archivo = e.target.files[0];
         if (archivo) {
@@ -425,8 +422,7 @@
             lector.onload = function(evt) {
                 const img = new Image();
                 img.onload = function() {
-                    // LÓGICA DE COMPRESIÓN DE IMAGEN USANDO CANVAS
-                    const maximoAnchoAlto = 250; // Tamaño ideal liviano
+                    const maximoAnchoAlto = 180; // Resolución optimizada para localStorage
                     let anchoOriginal = img.width;
                     let altoOriginal = img.height;
 
@@ -448,11 +444,15 @@
                     const ctx = canvas.getContext('2d');
                     ctx.drawImage(img, 0, 0, anchoOriginal, altoOriginal);
                     
-                    // Comprimir al 75% en formato JPEG
-                    const base64Optimizada = canvas.toDataURL('image/jpeg', 0.75);
+                    // Compresión agresiva y segura al 70% en JPG
+                    const base64Optimizada = canvas.toDataURL('image/jpeg', 0.70);
                     
-                    localStorage.setItem('club_logo_persitente', base64Optimizada);
-                    configurarFuentesLogo(base64Optimizada);
+                    try {
+                        localStorage.setItem('club_logo_persitente', base64Optimizada);
+                        configurarFuentesLogo(base64Optimizada);
+                    } catch(err) {
+                        alert("Error de memoria: La imagen elegida es excesivamente grande. Intenta usar otra foto.");
+                    }
                 };
                 img.src = evt.target.result;
             };
@@ -466,11 +466,13 @@
         logoPlaceholder.style.display = 'none';
     }
 
-    function cambiarPestaña(pestaña) {
+    // CONTROL DE PESTAÑAS MEJORADO
+    function cambiarPestaña(pestaña, boton) {
         document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
         document.querySelectorAll('.tab-button').forEach(tb => tb.classList.remove('active'));
+        
         document.getElementById(`tab-${pestaña}`).classList.add('active');
-        event.currentTarget.classList.add('active');
+        boton.classList.add('active');
         
         if (pestaña === 'reportes') {
             const hoy = new Date();
@@ -482,6 +484,7 @@
         }
     }
 
+    // CÁLCULO DE OPERACIONES FINANCIERAS
     function calcularFinanzasDiarias() {
         let ventaDiaAcumulado = 0;
         let productoCerradoAcumulado = 0;
@@ -499,19 +502,19 @@
         const verde = combinado * 0.30;
         const consumos = ventaDiaAcumulado / 90;
         
-        txtVentaDia.textContent = combinado === 0 ? "0.00" : ventaDiaAcumulado.toFixed(2);
-        txtProductoCerrado.textContent = combinado === 0 ? "0.00" : productoCerradoAcumulado.toFixed(2);
-        txtTotalCombinado.textContent = combinado === 0 ? "0.00" : combinado.toFixed(2);
-        txtSobreRojo.textContent = combinado === 0 ? "0.00" : rojo.toFixed(2);
-        txtSobreVerde.textContent = combinado === 0 ? "0.00" : verde.toFixed(2);
-        txtConsumosMetrica.textContent = combinado === 0 ? "0.00" : consumos.toFixed(2);
+        // Renderizado del Tablero
+        txtVentaDia.textContent = ventaDiaAcumulado.toFixed(2);
+        txtProductoCerrado.textContent = productoCerradoAcumulado.toFixed(2);
+        txtTotalCombinado.textContent = combinado.toFixed(2);
+        txtSobreRojo.textContent = rojo.toFixed(2);
+        txtSobreVerde.textContent = verde.toFixed(2);
+        txtConsumosMetrica.textContent = consumos.toFixed(2);
 
-        // Sincronizar datos del Ticket
-        tvVenta.textContent = combinado === 0 ? "0.00" : ventaDiaAcumulado.toFixed(2); // Wait, tvVenta no existe como variable global aislada arriba, let's fix below
-        tvRojo.textContent = combinado === 0 ? "0.00" : rojo.toFixed(2);
-        tvVerde.textContent = combinado === 0 ? "0.00" : verde.toFixed(2);
-        tvConsumos.textContent = combinado === 0 ? "0.00" : consumos.toFixed(2);
-        tvSumaTabla.textContent = combinado === 0 ? "0.00" : combinado.toFixed(2);
+        // Renderizado del Ticket Oculto Seguro
+        if (tvRojo) tvRojo.textContent = rojo.toFixed(2);
+        if (tvVerde) tvVerde.textContent = verde.toFixed(2);
+        if (tvConsumos) tvConsumos.textContent = consumos.toFixed(2);
+        if (tvSumaTabla) tvSumaTabla.textContent = combinado.toFixed(2);
     }
 
     function eliminarRegistro(idAEliminar) {
@@ -568,16 +571,16 @@
 
         const totalConsumosUnidades = totalVentaRango / 90;
         const promedioDiarioConsumos = totalConsumosUnidades / cantDias;
-        const promedioSobresVerdes = (totalVentaRango + totalCerradoRango) * 0.30;
+        const sumaSobresVerdesRango = (totalVentaRango + totalCerradoRango) * 0.30;
 
         txtRepTotalConsumos.textContent = totalConsumosUnidades.toFixed(2);
         txtRepPromedioConsumos.textContent = promedioDiarioConsumos.toFixed(2);
-        txtRepSumaVerdes.textContent = promedioSobresVerdes.toFixed(2);
+        txtRepSumaVerdes.textContent = sumaSobresVerdesRango.toFixed(2);
 
         lblDivisionDias.textContent = `Calculado para ${cantDias} día(s)`;
     }
 
-    // EXPORTACIÓN CON EL NUEVO FORMATO INTEGRAL DE TU LIBRETA FÍSICA
+    // EXPORTACIÓN ESTILO HOJA FÍSICA DE CONTROL MANUAL
     function exportarTicketProfesional() {
         ticketTablaDinamicaClientes.innerHTML = '';
         const hoyStr = new Date().toDateString();
@@ -586,27 +589,26 @@
         registros.forEach(reg => {
             if (new Date(reg.fecha).toDateString() === hoyStr) {
                 indiceLinea++;
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td style="color: #64748b; font-weight: bold; border-bottom: 1px solid #e2e8f0; padding: 8px;">${indiceLinea}</td>
-                    <td style="border-bottom: 1px solid #e2e8f0; padding: 8px; font-weight: 500;">${reg.cliente} ${reg.tipo === 'cerrado' ? '(P. Cerrado)' : ''}</td>
-                    <td style="border-bottom: 1px solid #e2e8f0; padding: 8px; font-weight: bold; text-align: right;">$${reg.monto.toFixed(2)}</td>
+                const trTicket = document.createElement('tr');
+                trTicket.innerHTML = `
+                    <td style="color: #64748b; font-weight: bold; border-bottom: 1px solid #cbd5e1; padding: 10px;">${indiceLinea}</td>
+                    <td style="border-bottom: 1px solid #cbd5e1; padding: 10px; font-weight: 600; color: #1e293b;">${reg.cliente} ${reg.tipo === 'cerrado' ? '(P. Cerrado)' : ''}</td>
+                    <td style="border-bottom: 1px solid #cbd5e1; padding: 10px; font-weight: 800; color: #1e293b; text-align: right;">$${reg.monto.toFixed(2)}</td>
                 `;
-                ticketTablaDinamicaClientes.appendChild(tr);
+                ticketTablaDinamicaClientes.appendChild(trTicket);
             }
         });
 
-        // Completar líneas en blanco si está vacío para mantener el diseño de la libreta
         if (indiceLinea === 0) {
-            tr = document.createElement('tr');
-            tr.innerHTML = `<td colspan="3" style="text-align: center; color: #94a3b8; padding: 20px;">Sin registros en la jornada actual</td>`;
-            ticketTablaDinamicaClientes.appendChild(tr);
+            const trVacio = document.createElement('tr');
+            trVacio.innerHTML = `<td colspan="3" style="text-align: center; color: #94a3b8; padding: 20px; font-style: italic;">Sin operaciones guardadas hoy</td>`;
+            ticketTablaDinamicaClientes.appendChild(trVacio);
         }
 
-        // Formatear Fecha al estilo manual de tu hoja
+        // Estampa de Fecha Manual de Libreta
         const diasSemana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
         const fechaActual = new Date();
-        tvFechaFormat.textContent = `${diasSemana[fechaActual.getDay()]} ${fechaActual.getDate()}`;
+        if (tvFechaFormat) tvFechaFormat.textContent = `${diasSemana[fechaActual.getDay()]} ${fechaActual.getDate()}`;
 
         const ticketVisual = document.getElementById('ticket-visual');
 
@@ -616,7 +618,7 @@
             logging: false
         }).then(canvas => {
             const link = document.createElement('a');
-            link.download = `Registro_${fechaActual.toISOString().substring(0,10)}.png`;
+            link.download = `Registro_Hoja_${fechaActual.toISOString().substring(0,10)}.png`;
             link.href = canvas.toDataURL('image/png');
             link.click();
         });
@@ -647,13 +649,14 @@
     });
 
     document.getElementById('btnReset').addEventListener('click', function() {
-        if (confirm('¿Vaciar por completo el historial guardado?')) {
+        if (confirm('¿Deseas vaciar por completo el historial guardado?')) {
             registros = [];
             localStorage.removeItem('caja_operativa');
             actualizarSistema();
         }
     });
 
+    // Arranque inicial
     actualizarSistema();
 </script>
 </body>
