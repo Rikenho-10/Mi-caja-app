@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Executive Control - Ultra-HD Edition</title>
+    <title>Executive Control - Green Lounge Edition</title>
+    <!-- Librería externa para procesamiento de gráficos a imagen sin pérdida -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
-        /* Estilos Globales de la Aplicación - Cyber VIP Lounge */
+        /* Estilos del Panel Operativo de la Aplicación */
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: #04060f;
+            background-color: #05070f;
             color: #e2e8f0;
             margin: 0;
             padding: 20px;
@@ -19,78 +20,62 @@
         .container {
             width: 100%;
             max-width: 600px;
-            background: #090d1a;
+            background: #0d1224;
             padding: 30px;
             border-radius: 24px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 20px rgba(59, 130, 246, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.03);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             box-sizing: border-box;
         }
-
-        /* Identidad de Marca */
         .brand-header { text-align: center; margin-bottom: 30px; }
         .logo-wrapper { cursor: pointer; display: inline-block; margin-bottom: 12px; }
-        .brand-logo { width: 90px; height: 90px; border-radius: 50%; border: 2px solid #3b82f6; box-shadow: 0 0 15px rgba(59, 130, 246, 0.3); object-fit: cover; }
+        .brand-logo { width: 90px; height: 90px; border-radius: 50%; border: 2px solid #3b82f6; object-fit: cover; }
         .logo-placeholder {
-            width: 90px; height: 90px; border-radius: 50%; border: 2px dashed rgba(59, 130, 246, 0.4);
-            display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: #3b82f6;
-            text-transform: uppercase; letter-spacing: 1px; background: rgba(59, 130, 246, 0.02);
+            width: 90px; height: 90px; border-radius: 50%; border: 2px dashed rgba(255, 255, 255, 0.2);
+            display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: #64748b;
         }
-        .brand-title { font-size: 1.4rem; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; color: #ffffff; margin: 0; }
+        .brand-title { font-size: 1.3rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #ffffff; margin: 0; }
 
         /* Pestañas de Navegación */
-        .tabs-nav { display: flex; background: #03050b; padding: 6px; border-radius: 14px; margin-bottom: 30px; border: 1px solid rgba(255, 255, 255, 0.02); }
-        .tab-button { flex: 1; padding: 12px; background: transparent; border: none; border-radius: 10px; font-weight: 600; color: #4b5563; font-size: 0.9rem; cursor: pointer; transition: all 0.2s; }
-        .tab-button.active { background: #111827; color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.15); box-shadow: 0 0 10px rgba(59, 130, 246, 0.1); }
+        .tabs-nav { display: flex; background: #070913; padding: 6px; border-radius: 14px; margin-bottom: 30px; border: 1px solid rgba(255, 255, 255, 0.03); }
+        .tab-button { flex: 1; padding: 12px; background: transparent; border: none; border-radius: 10px; font-weight: 600; color: #64748b; font-size: 0.9rem; cursor: pointer; }
+        .tab-button.active { background: #1e293b; color: #ffffff; }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
 
-        /* Tablero de Control */
+        /* Dashboard de la Aplicación */
         .dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 25px; }
-        .card { background: rgba(255, 255, 255, 0.01); border: 1px solid rgba(255, 255, 255, 0.04); padding: 20px; border-radius: 16px; text-align: center; }
+        .card { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); padding: 20px; border-radius: 16px; text-align: center; }
         .card-title { font-size: 0.75rem; text-transform: uppercase; color: #94a3b8; margin-bottom: 8px; letter-spacing: 1.5px; font-weight: 600; }
         .card-value { font-size: 1.5rem; font-weight: 700; color: #ffffff; }
         .grid-full { grid-column: span 2; }
-        .card-total { border-top: 3px solid #3b82f6; background: rgba(59, 130, 246, 0.02); }
-        .card-rojo { border-top: 3px solid #ef4444; }
-        .card-rojo .card-value { color: #f87171; }
-        .card-verde { border-top: 3px solid #10b981; }
-        .card-verde .card-value { color: #34d399; }
-        .card-gold { background: linear-gradient(180deg, rgba(245, 158, 11, 0.06) 0%, rgba(0,0,0,0) 100%); border: 1px solid rgba(245, 158, 11, 0.15); border-top: 4px solid #f59e0b; grid-column: span 2; }
-        .card-gold .card-title { color: #fbbf24; font-weight: 700; }
-        .card-gold .card-value { font-size: 2.4rem; color: #fbbf24; text-shadow: 0 0 10px rgba(245, 158, 11, 0.3); }
+        .card-total { border-top: 2px solid #3b82f6; }
+        .card-rojo { border-top: 2px solid #ef4444; }
+        .card-verde { border-top: 2px solid #10b981; }
+        .card-gold { border-top: 3px solid #f59e0b; }
 
-        /* Formularios */
+        /* Formularios y Tablas Operativas */
         .form-group { margin-bottom: 20px; }
-        label { display: block; margin-bottom: 8px; font-size: 0.85rem; color: #64748b; }
-        input, select { width: 100%; padding: 14px; box-sizing: border-box; border: 1px solid rgba(255, 255, 255, 0.06); background-color: #03050b; color: #ffffff; border-radius: 12px; font-size: 1rem; }
-        input:focus, select:focus { border-color: #3b82f6; outline: none; }
-        
-        .btn-action { width: 100%; padding: 15px; border: none; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+        label { display: block; margin-bottom: 8px; font-size: 0.85rem; color: #94a3b8; }
+        input, select { width: 100%; padding: 14px; box-sizing: border-box; border: 1px solid rgba(255, 255, 255, 0.08); background-color: #070913; color: #ffffff; border-radius: 12px; font-size: 1rem; }
+        .btn-action { width: 100%; padding: 15px; border: none; border-radius: 12px; font-size: 1rem; font-weight: 600; cursor: pointer; }
         .btn-submit { background: #ffffff; color: #05070f; }
-        .btn-download { background: linear-gradient(135deg, #2563eb, #1d4ed8); color: #ffffff; margin-bottom: 30px; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2); }
-
-        /* Tablas */
+        .btn-download { background: transparent; color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.15); margin-bottom: 30px; }
         table { width: 100%; border-collapse: collapse; margin-top: 25px; }
-        th, td { padding: 14px; text-align: left; border-bottom: 1px solid rgba(255, 255, 255, 0.03); }
-        th { color: #4b5563; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; }
-        .badge { padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; }
-        .badge-c { background: rgba(59, 130, 246, 0.1); color: #60a5fa; }
-        .badge-p { background: rgba(245, 158, 11, 0.1); color: #fbbf24; }
-        .btn-row-delete { background: transparent; color: #4b5563; border: none; cursor: pointer; font-size: 1rem; }
+        th, td { padding: 14px; text-align: left; border-bottom: 1px solid rgba(255, 255, 255, 0.04); }
+        th { color: #64748b; font-size: 0.8rem; text-transform: uppercase; }
+        .badge-c { background: rgba(59, 130, 246, 0.1); color: #60a5fa; padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; }
+        .badge-p { background: rgba(245, 158, 11, 0.1); color: #fbbf24; padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; }
+        .btn-row-delete { background: transparent; color: #64748b; border: none; cursor: pointer; }
         .btn-row-delete:hover { color: #ef4444; }
-        
         .date-range-container { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
         .report-grid { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; }
         .report-neon-card { background: #111827; border: 1px solid #374151; padding: 20px; border-radius: 14px; display: flex; justify-content: space-between; align-items: center; }
-        .border-amber { border-left: 5px solid #f59e0b; }
-        .border-emerald { border-left: 5px solid #10b981; }
-        .report-val-highlight { font-size: 1.8rem; font-weight: bold; }
-        .color-amber { color: #fbbf24; }
-        .color-emerald { color: #34d399; }
-        .btn-clear-data { background: transparent; color: #1e293b; border: none; font-size: 0.85rem; margin-top: 40px; width: 100%; cursor: pointer; }
+        .btn-clear-data { background: transparent; color: #273549; border: none; font-size: 0.85rem; margin-top: 40px; width: 100%; cursor: pointer; }
 
-        /* Contenedor Fijo Oculto Blindado */
+        /* ==========================================================================
+           MÓDULO DE REDISEÑO: ADAPTACIÓN ESTRICTA AL ESTILO DE LA IMAGEN 465251.png
+           ========================================================================== */
         #ticket-render-container { 
             position: fixed; 
             top: 0; 
@@ -98,24 +83,136 @@
             pointer-events: none;
             z-index: -9999;
         }
-        
-        /* ==========================================================================
-           TICKET DE ALTA DEFINICIÓN (FUENTES MÁS GRUESAS CONTRA LA COMPRESIÓN)
-           ========================================================================== */
         .ticket-style-print {
-            width: 480px;
-            background-color: #060914; 
+            width: 540px;
+            background: linear-gradient(135deg, #162e15 0%, #0a140a 100%); /* Tono verde oscuro de la imagen 465251.png */
             color: #ffffff; 
-            padding: 40px;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+            padding: 40px 30px;
+            font-family: Arial, Helvetica, sans-serif; 
             box-sizing: border-box; 
-            border: 2px solid rgba(255,255,255,0.1);
+        }
+        .ticket-header-date {
+            color: #b5c4b1;
+            font-size: 1.05rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .ticket-layout-columns {
+            display: flex;
+            gap: 25px;
+        }
+        .ticket-left-table {
+            flex: 1.3;
+        }
+        .ticket-right-summary {
+            flex: 0.9;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        /* Estilos de la tabla de asistencia de la hoja */
+        .table-print-sheet {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .table-print-sheet th {
+            color: #c5b696; /* Color oro/oliva de los títulos en 465251.png */
+            font-size: 1.25rem;
+            font-weight: bold;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+        }
+        .table-print-sheet td {
+            padding: 5px 0;
+            font-size: 1.05rem;
+            font-weight: bold;
+            color: #ffffff;
+            vertical-align: middle;
+        }
+        .table-print-sheet td.row-index {
+            color: #ffffff;
+            width: 30px;
+        }
+        .table-print-sheet td.row-currency {
+            color: #ffffff;
+            text-align: right;
+            width: 20px;
+            padding-right: 15px;
+        }
+        .table-print-sheet td.row-value {
+            text-align: right;
+            padding-right: 5px;
+        }
+        .table-print-footer {
+            border-top: 1px solid #ffffff;
+            font-size: 1.15rem;
+            font-weight: bold;
+        }
+        /* Bloque Superior Derecho: Consumos (Rojo Intenso) */
+        .box-consumos-alert {
+            display: flex;
+            align-items: center;
+            background: rgba(0,0,0,0.25);
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .box-consumos-alert .label {
+            color: #c5b696;
+            font-weight: bold;
+            font-size: 1.1rem;
+            padding: 8px 12px;
+            flex: 1;
+        }
+        .box-consumos-alert .val {
+            background: #ff1e1e; /* Rojo de la imagen 465251.png */
+            color: #ffffff;
+            font-weight: 900;
+            padding: 6px 14px;
+            font-size: 1.4rem;
+            text-align: center;
+        }
+        /* Bloque de Contabilidad Interna (Fondo Oscuro con Alineaciones) */
+        .box-accounting-card {
+            background: rgba(0, 0, 0, 0.35);
+            padding: 16px;
+            border-radius: 6px;
+            border: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            font-size: 1.05rem;
+            font-weight: bold;
+        }
+        .accounting-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .accounting-row .lbl { color: #ffffff; }
+        .accounting-row .val-wrapper { display: flex; width: 90px; justify-content: space-between; }
+        .accounting-row .val-wrapper .cur { color: #ffffff; }
+        .accounting-row .val-wrapper .num { color: #ffffff; text-align: right; flex: 1; }
+        /* Resaltados de renglones específicos */
+        .accounting-row.rojo-line { background: rgba(239, 68, 68, 0.12); padding: 2px 6px; border-radius: 4px; }
+        .accounting-row.rojo-line .lbl, .accounting-row.rojo-line .num, .accounting-row.rojo-line .cur { color: #f87171; }
+        .accounting-row.verde-line { background: rgba(16, 185, 129, 0.12); padding: 2px 6px; border-radius: 4px; }
+        .accounting-row.verde-line .lbl, .accounting-row.verde-line .num, .accounting-row.verde-line .cur { color: #4ade80; }
+        /* Imagen de marca dentro del Ticket */
+        .ticket-brand-logo-centered {
+            width: 135px;
+            height: 135px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #c5b696;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.6);
         }
     </style>
 </head>
 <body>
 
 <div class="container">
+    <!-- Encabezado Base -->
     <div class="brand-header">
         <input type="file" id="logo-input" accept="image/*" style="display: none;">
         <div class="logo-wrapper" onclick="document.getElementById('logo-input').click();" title="Subir logotipo">
@@ -125,11 +222,13 @@
         <div class="brand-title">Executive Control</div>
     </div>
 
+    <!-- Menú -->
     <div class="tabs-nav">
         <button class="tab-button active" onclick="cambiarPestaña('registro', this)">Caja Diaria</button>
         <button class="tab-button" onclick="cambiarPestaña('reportes', this)">Auditoría</button>
     </div>
     
+    <!-- PESTAÑA 1: TABLERO OPERATIVO -->
     <div id="tab-registro" class="tab-content active">
         <div class="dashboard-grid">
             <div class="card">
@@ -158,7 +257,7 @@
             </div>
         </div>
 
-        <button class="btn-action btn-download" onclick="exportarTicketProfesional()">Exportar Reporte Ejecutivo (PNG)</button>
+        <button class="btn-action btn-download" onclick="exportarTicketProfesional()">Exportar Reporte Imagen (PNG)</button>
 
         <form id="formOperacion">
             <div class="form-group">
@@ -194,6 +293,7 @@
         <button class="btn-clear-data" id="btnReset">Reiniciar Parámetros de Almacenamiento</button>
     </div>
 
+    <!-- PESTAÑA 2: AUDITORÍA -->
     <div id="tab-reportes" class="tab-content">
         <h2>Filtro de Rango Temporal</h2>
         <div class="date-range-container">
@@ -234,68 +334,94 @@
     </div>
 </div>
 
+<!-- ==========================================================================
+     MODELO OCULTO FIJO: REPLICA EXACTA DE DISEÑO ADAPTADO DE 465251.png
+     ========================================================================== -->
 <div id="ticket-render-container">
     <div class="ticket-style-print" id="ticket-visual">
+        <!-- Fecha superior izquierda -->
+        <div class="ticket-header-date" id="t-fechaFormat">sábado, 30 mayo, 2026</div>
         
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
-            <div style="display: flex; align-items: center;">
-                <img id="ticket-logo" src="" alt="Logo" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover; margin-right: 14px; border: 2px solid #3b82f6; display: none;">
-                <div style="font-size: 1.3rem; font-weight: 900; color: #ffffff; text-transform: uppercase; letter-spacing: 1px; line-height: 1.2; max-width: 260px;">Registro de Asistencia y Ganancias</div>
+        <!-- Cuerpo en dos columnas horizontales -->
+        <div class="ticket-layout-columns">
+            
+            <!-- Columna Izquierda: Tabla estructurada de nombres -->
+            <div class="ticket-left-table">
+                <table class="table-print-sheet">
+                    <thead>
+                        <tr>
+                            <th colspan="2" style="text-align: left;">Nombre</th>
+                            <th style="text-align: right; padding-right: 5px;">$</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ticket-tabla-dinamica-clientes">
+                        <!-- Filas inyectadas mediante JavaScript -->
+                    </tbody>
+                    <tfoot>
+                        <tr class="table-print-footer">
+                            <td colspan="2" style="padding-top: 10px;">Total</td>
+                            <td style="text-align: right; padding-top: 10px; padding-right: 5px; font-weight: bold;">
+                                <div style="display: inline-flex; width: 85px; justify-content: space-between;">
+                                    <span>$</span><span id="t-tablaTotalSuma">0</span>
+                                </div>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
             </div>
-            <div style="background: rgba(245, 158, 11, 0.15); border: 2px solid #f59e0b; border-radius: 12px; padding: 10px 16px; text-align: center; min-width: 95px;">
-                <div style="font-size: 0.7rem; text-transform: uppercase; font-weight: 900; color: #fbbf24; letter-spacing: 0.5px;">Consumos</div>
-                <div style="font-size: 1.6rem; font-weight: 900; color: #fbbf24;" id="t-consumosMetrica">0.00</div>
+            
+            <!-- Columna Derecha: Tarjetas de contabilidad y Logotipo -->
+            <div class="ticket-right-summary">
+                
+                <!-- Bloque Consumos (Rojo) -->
+                <div class="box-consumos-alert">
+                    <div class="label">Consumos</div>
+                    <div class="val" id="t-consumosMetrica">0.00</div>
+                </div>
+                
+                <!-- Desglose de Caja -->
+                <div class="box-accounting-card">
+                    <div class="accounting-row">
+                        <span class="lbl">P. Cerrado</span>
+                        <div class="val-wrapper">
+                            <span class="cur">$</span><span class="num" id="t-productoCerrado">0</span>
+                        </div>
+                    </div>
+                    <div class="accounting-row">
+                        <span class="lbl">Vta total</span>
+                        <div class="val-wrapper">
+                            <span class="cur">$</span><span class="num" id="t-totalCombinado">0</span>
+                        </div>
+                    </div>
+                    <div class="accounting-row rojo-line">
+                        <span class="lbl">Rojo</span>
+                        <div class="val-wrapper">
+                            <span class="cur">$</span><span class="num" id="t-sobreRojo">0</span>
+                        </div>
+                    </div>
+                    <div class="accounting-row verde-line">
+                        <span class="lbl">Verde</span>
+                        <div class="val-wrapper">
+                            <span class="cur">$</span><span class="num" id="t-sobreVerde">0</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Logotipo de la marca centrado -->
+                <div style="text-align: center; margin-top: 15px;">
+                    <img id="ticket-logo" src="" alt="Logo" class="ticket-brand-logo-centered" style="display: none;">
+                </div>
+                
             </div>
         </div>
-        
-        <table style="width: 100%; border-collapse: collapse; margin: 25px 0;">
-            <thead>
-                <tr>
-                    <th style="color: #64748b; font-weight: 800; font-size: 0.8rem; padding: 12px 10px; border-bottom: 3px solid rgba(255,255,255,0.15); text-transform: uppercase; text-align: left; width: 55px;">Línea</th>
-                    <th style="color: #64748b; font-weight: 800; font-size: 0.8rem; padding: 12px 10px; border-bottom: 3px solid rgba(255,255,255,0.15); text-transform: uppercase; text-align: left;">Nombre / Concepto</th>
-                    <th style="color: #64748b; font-weight: 800; font-size: 0.8rem; padding: 12px 10px; border-bottom: 3px solid rgba(255,255,255,0.15); text-transform: uppercase; text-align: right;">Total ($)</th>
-                </tr>
-            </thead>
-            <tbody id="ticket-tabla-dinamica-clientes" style="color: #ffffff; font-weight: 700;"></tbody>
-        </table>
-        
-        <div style="display: flex; justify-content: flex-end; font-size: 1.2rem; font-weight: 900; padding: 14px 10px; color: #ffffff; border-top: 2px dashed rgba(255,255,255,0.2);">
-            Suma Tabla: $<span id="t-sumaTablaTotal">0.00</span>
-        </div>
-
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0 25px 0;">
-            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-left: 4px solid #3b82f6; padding: 12px; border-radius: 10px;">
-                <div style="font-size: 0.7rem; color: #94a3b8; text-transform: uppercase; font-weight: 800; letter-spacing: 0.5px;">Venta del Día</div>
-                <div style="font-size: 1.2rem; font-weight: 900; color: #ffffff; margin-top: 2px;">$<span id="t-ventaDia">0.00</span></div>
-            </div>
-            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-left: 4px solid #f59e0b; padding: 12px; border-radius: 10px;">
-                <div style="font-size: 0.7rem; color: #94a3b8; text-transform: uppercase; font-weight: 800; letter-spacing: 0.5px;">Producto Cerrado</div>
-                <div style="font-size: 1.2rem; font-weight: 900; color: #ffffff; margin-top: 2px;">$<span id="t-productoCerrado">0.00</span></div>
-            </div>
-        </div>
-        
-        <div style="display: flex; gap: 14px; margin-top: 20px;">
-            <div style="flex: 1; background-color: rgba(239, 68, 68, 0.15); border: 2px solid #f472b6; border-radius: 10px; padding: 12px; text-align: center;">
-                <div style="font-size: 0.75rem; font-weight: 900; color: #f472b6; text-transform: uppercase; letter-spacing: 0.5px;">Rojo (70%)</div>
-                <div style="font-size: 1.35rem; font-weight: 900; color: #ffffff; margin-top: 2px;">$<span id="t-sobreRojo">0.00</span></div>
-            </div>
-            <div style="flex: 1; background-color: rgba(16, 185, 129, 0.15); border: 2px solid #4ade80; border-radius: 10px; padding: 12px; text-align: center;">
-                <div style="font-size: 0.75rem; font-weight: 900; color: #4ade80; text-transform: uppercase; letter-spacing: 0.5px;">Verde (30%)</div>
-                <div style="font-size: 1.35rem; font-weight: 900; color: #ffffff; margin-top: 2px;">$<span id="t-sobreVerde">0.00</span></div>
-            </div>
-            <div style="background-color: rgba(250, 204, 21, 0.15); border: 2px solid #facc15; border-radius: 10px; padding: 12px 16px; text-align: center; display: flex; flex-direction: column; justify-content: center; min-width: 105px;">
-                <div style="font-size: 0.7rem; font-weight: 900; color: #facc15; text-transform: uppercase; letter-spacing: 0.5px;">Fecha</div>
-                <div style="font-size: 1.1rem; font-weight: 900; color: #ffffff; margin-top: 2px;" id="t-fechaFormat">00</div>
-            </div>
-        </div>
-        
-        <div style="text-align: center; font-size: 0.75rem; color: #4b5563; font-weight: 700; margin-top: 40px; letter-spacing: 2px;">AUDITORÍA DE CAJA INTERNA PRIVADA</div>
     </div>
 </div>
 
 <script>
+    // Recuperación de la persistencia de datos
     let registros = JSON.parse(localStorage.getItem('caja_operativa')) || [];
 
+    // Selectores del DOM de la Aplicación
     const logoInput = document.getElementById('logo-input');
     const appLogo = document.getElementById('app-logo');
     const ticketLogo = document.getElementById('ticket-logo');
@@ -314,16 +440,17 @@
     const txtSobreVerde = document.getElementById('sobreVerde');
     const txtConsumosMetrica = document.getElementById('consumosMetrica');
 
-    // Nodos Sincronizados
-    const tvVenta = document.getElementById('t-ventaDia');
+    // Selectores del Recibo Oculto
     const tvCerrado = document.getElementById('t-productoCerrado');
+    const tvCombinado = document.getElementById('t-totalCombinado');
     const tvRojo = document.getElementById('t-sobreRojo');
     const tvVerde = document.getElementById('t-sobreVerde');
     const tvConsumos = document.getElementById('t-consumosMetrica');
-    const tvSumaTabla = document.getElementById('t-sumaTablaTotal');
+    const tvSumaTablaTotal = document.getElementById('t-tablaTotalSuma');
     const tvFechaFormat = document.getElementById('t-fechaFormat');
     const ticketTablaDinamicaClientes = document.getElementById('ticket-tabla-dinamica-clientes');
 
+    // Selectores de la Pestaña de Reportes
     const fInicio = document.getElementById('fechaInicio');
     const fFin = document.getElementById('fechaFin');
     const txtRepTotalConsumos = document.getElementById('repTotalConsumos');
@@ -331,9 +458,11 @@
     const txtRepSumaVerdes = document.getElementById('repSumaVerdes');
     const lblDivisionDias = document.getElementById('lblDivisionDias');
 
+    // Carga inicial de imagen si existe en memoria
     const logoGuardado = localStorage.getItem('club_logo_persitente');
     if (logoGuardado) configurarFuentesLogo(logoGuardado);
 
+    // Sistema de compresión de imagen para el almacenamiento local
     logoInput.addEventListener('change', function(e) {
         const archivo = e.target.files[0];
         if (archivo) {
@@ -400,6 +529,7 @@
         }
     }
 
+    // Procesamiento aritmético de la caja diaria
     function calcularFinanzasDiarias() {
         let ventaDiaAcumulado = 0;
         let productoCerradoAcumulado = 0;
@@ -417,6 +547,9 @@
         const verde = combinado * 0.30;
         const consumos = ventaDiaAcumulado / 90;
         
+        // Formateadores de números planos y con separadores para el ticket
+        const f = (num) => num.toLocaleString('es-MX', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+
         txtVentaDia.textContent = ventaDiaAcumulado.toFixed(2);
         txtProductoCerrado.textContent = productoCerradoAcumulado.toFixed(2);
         txtTotalCombinado.textContent = combinado.toFixed(2);
@@ -424,12 +557,13 @@
         txtSobreVerde.textContent = verde.toFixed(2);
         txtConsumosMetrica.textContent = consumos.toFixed(2);
 
-        if (tvVenta) tvVenta.textContent = ventaDiaAcumulado.toFixed(2);
-        if (tvCerrado) tvCerrado.textContent = productoCerradoAcumulado.toFixed(2);
-        if (tvRojo) tvRojo.textContent = rojo.toFixed(2);
-        if (tvVerde) tvVerde.textContent = verde.toFixed(2);
+        // Inyectar datos en las variables del recibo
+        if (tvCerrado) tvCerrado.textContent = f(productoCerradoAcumulado);
+        if (tvCombinado) tvCombinado.textContent = f(combinado);
+        if (tvRojo) tvRojo.textContent = f(rojo);
+        if (tvVerde) tvVerde.textContent = f(verde);
         if (tvConsumos) tvConsumos.textContent = consumos.toFixed(2);
-        if (tvSumaTabla) tvSumaTabla.textContent = combinado.toFixed(2);
+        if (tvSumaTablaTotal) tvSumaTablaTotal.textContent = f(ventaDiaAcumulado);
     }
 
     function eliminarRegistro(idAEliminar) {
@@ -495,48 +629,56 @@
         lblDivisionDias.textContent = `Calculado para ${cantDias} día(s)`;
     }
 
-    // EXPORTACIÓN MEJORADA CON ESCALA EN ULTRA ALTA DEFINICIÓN (scale: 4)
+    // RENDERIZADO DEL REPORTE ADAPTADO VISUALMENTE A LA IMAGEN 465251.png
     function exportarTicketProfesional() {
         ticketTablaDinamicaClientes.innerHTML = '';
         const hoyStr = new Date().toDateString();
         let indiceLinea = 0;
 
         registros.forEach(reg => {
-            if (new Date(reg.fecha).toDateString() === hoyStr) {
+            if (new Date(reg.fecha).toDateString() === hoyStr && reg.tipo === 'consumo') {
                 indiceLinea++;
                 const trTicket = document.createElement('tr');
-                const marcaTipo = reg.tipo === 'cerrado' ? ' (P. Cerrado)' : '';
                 
+                // Mapeo estructural: Número, Nombre alineado a la izquierda, Monto entero/decimal a la derecha
                 trTicket.innerHTML = `
-                    <td style="color: #64748b; font-weight: 800; border-bottom: 1px solid rgba(255,255,255,0.08); padding: 12px 10px; font-size: 0.95rem;">${String(indiceLinea).padStart(2, '0')}</td>
-                    <td style="border-bottom: 1px solid rgba(255,255,255,0.08); padding: 12px 10px; font-weight: 700; color: #ffffff; font-size: 0.95rem;">${reg.cliente}${marcaTipo}</td>
-                    <td style="border-bottom: 1px solid rgba(255,255,255,0.08); padding: 12px 10px; font-weight: 900; color: #ffffff; text-align: right; font-size: 0.95rem;">$${reg.monto.toFixed(2)}</td>
+                    <td class="row-index">${indiceLinea}</td>
+                    <td>${reg.cliente}</td>
+                    <td class="row-currency">$</td>
+                    <td class="row-value">${reg.monto.toLocaleString('es-MX', { minimumFractionDigits: 0, maximumFractionDigits: 2 })}</td>
                 `;
                 ticketTablaDinamicaClientes.appendChild(trTicket);
             }
         });
 
+        // Rellenar con renglones vacíos si hay pocas líneas para preservar la estética de la grilla
         if (indiceLinea === 0) {
             const trVacio = document.createElement('tr');
-            trVacio.innerHTML = `<td colspan="3" style="text-align: center; color: #64748b; padding: 25px; font-style: italic; font-size: 0.9rem;">Sin transacciones hoy</td>`;
+            trVacio.innerHTML = `<td colspan="4" style="text-align: center; color: rgba(255,255,255,0.4); padding: 20px; font-style: italic;">Sin consumos registrados hoy</td>`;
             ticketTablaDinamicaClientes.appendChild(trVacio);
         }
 
-        const diasSemana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+        // Formateador de Fecha exacto: "sábado, 30 mayo, 2026"
+        const opcionesFecha = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
         const fechaActual = new Date();
-        if (tvFechaFormat) tvFechaFormat.textContent = `${diasSemana[fechaActual.getDay()]} ${fechaActual.getDate()}`;
+        let strFecha = fechaActual.toLocaleDateString('es-MX', opcionesFecha);
+        
+        // Ajuste de comas estructurales en el string de fecha
+        strFecha = strFecha.replace(' de ', ', ').replace(' de ', ', ');
+        if (tvFechaFormat) tvFechaFormat.textContent = strFecha;
 
         const ticketVisual = document.getElementById('ticket-visual');
 
-        // MULTIPLICACIÓN POR 4 DE LA RESOLUCIÓN PARA INTEGRACIÓN ULTRA-HD
+        // Renderizador en Súper Resolución Escala 4 (Evita pérdida de nitidez en textos pequeños)
         html2canvas(ticketVisual, {
-            backgroundColor: '#070913',
+            backgroundColor: null, 
             scale: 4, 
-            logging: false
+            logging: false,
+            useCORS: true
         }).then(canvas => {
             const link = document.createElement('a');
-            link.download = `Auditoria_VIP_${fechaActual.toISOString().substring(0,10)}.png`;
-            link.href = canvas.toDataURL('image/png');
+            link.download = `Reporte_Caja_${fechaActual.toISOString().substring(0,10)}.png`;
+            link.href = canvas.toDataURL('image/png'); // El formato PNG nativo previene artefactos de compresión
             link.click();
         });
     }
